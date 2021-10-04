@@ -8,7 +8,7 @@ import { ResultadoAposta } from '../entities/resultado_aposta';
 })
 export class ResultadoApostaService {
 
-  url = 'http://localhost:8080/resultadoAposta'
+  url = 'http://localhost:8080/resultadoaposta'
 
   constructor(private http: HttpClient) { }
 
