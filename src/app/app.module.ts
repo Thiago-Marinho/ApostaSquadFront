@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { TimeComponent } from './components/time/time.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { TimeAlterarComponent } from './components/time-alterar/time-alterar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TimeAlterarComponent } from './components/time-alterar/time-alterar.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

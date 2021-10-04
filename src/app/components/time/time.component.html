@@ -1,13 +1,16 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let element of elements" class="list-group-item">{{ ELEMENT }} <button type="button" routeLink="time/alterar/{{element.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let time of times" class="list-group-item">{{ time.nome }} <button type="button" routerLink="time/alterar/{{time.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
-    <button class="btn btn-success" (click)="showPostForm()">Incluir novo element</button>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir novo time</button>
 
     <div *ngIf="boolPostForm">
-        <!-- FORMULARIO INPUT -->
+        <form (ngSubmit)="onSubmit()">
+            <input type="text" name="nome" id="nome" [(ngModel)]="time.nome" required>
+            <input type="submit" value="Cadastrar">
+        </form>
     </div>
 </div>
 
