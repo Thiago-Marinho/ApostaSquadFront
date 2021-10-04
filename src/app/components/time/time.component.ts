@@ -10,7 +10,7 @@ import { TimeService } from 'src/app/services/time.service';
 export class TimeComponent implements OnInit {
 
   boolPostForm: boolean = false
-  time: Time | undefined
+  time: Time = {nome:""}
   times: Time[] = []
 
   constructor(private timeService: TimeService) { }
@@ -26,9 +26,8 @@ export class TimeComponent implements OnInit {
   hidePostForm(){
     this.boolPostForm = false
   }
-
-  save(){
-    
+  onSubmit(){
+    this.timeService.incluir(this.time).subscribe(resp=>console.log(resp))
   }
 
   listar(): void

@@ -9,7 +9,7 @@ import { Time } from '../entities/time';
 })
 export class TimeService {
 
-  private apiUrl = "http://localhost:8080"
+  private apiUrl = "http://localhost:8080/time"
   constructor(private http:HttpClient) { }
 
   carregarCliente(id: number): Observable<Time> {

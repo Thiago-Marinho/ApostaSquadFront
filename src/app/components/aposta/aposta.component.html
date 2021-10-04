@@ -1,0 +1,25 @@
+<div class="container">
+    <!-- LISTAR -->
+    <ul class="list-group">
+        <li *ngFor="let aposta of apostas" class="list-group-item">{{ aposta.descricao }} <button type="button" routerLink="aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
+    </ul>
+    <br>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir novo aposta</button>
+
+    <div *ngIf="boolPostForm">
+        <form (ngSubmit)="onSubmit()">
+            <input type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
+            <input type="number" name="valor" id="valor" [(ngModel)]="aposta.valor" required>
+            <select [(ngModel)]="aposta.id_situacao">
+                <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
+            </select>
+            <select [(ngModel)]="aposta.id_situacao">
+                <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
+            </select>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>
+
+
+

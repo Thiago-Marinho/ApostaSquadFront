@@ -1,0 +1,23 @@
+<div class="container">
+    <!-- LISTAR -->
+    <ul class="list-group">
+        <li *ngFor="let partida of partidas" class="list-group-item">{{ partida.descricao }} <button type="button" routerLink="partida/alterar/{{partida.id}}" class="btn btn-primary">Alterar</button></li>
+    </ul>
+    <br>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir novo partida</button>
+
+    <div *ngIf="boolPostForm">
+        <form (ngSubmit)="onSubmit()">
+            <input type="text" name="descricao" id="descricao" [(ngModel)]="partida.descricao" required>
+            <input type="datetime" name="data" id="data" [(ngModel)]="partida.data" required>
+            <select [(ngModel)]="partida.id_estadio">
+                <option *ngFor="let estadio of situacoes" value="{{estadio.id}}">{{estadio.descricao}}</option>
+            </select>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>
+
+
+
+

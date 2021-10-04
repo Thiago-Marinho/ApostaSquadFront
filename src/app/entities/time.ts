@@ -1,4 +1,4 @@
 export interface Time{
-    id: number,
+    id?: number,
     nome: String
 }

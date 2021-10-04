@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Estadio } from 'src/app/entities/estadio';
 import { Partida } from 'src/app/entities/partida';
+import { EstadioService } from 'src/app/services/estadio.service';
 import { PartidaService } from 'src/app/services/partida.service';
 
 @Component({
@@ -18,10 +20,13 @@ export class PartidaAlterarComponent implements OnInit {
     id_estadio: 0
   }
 
-  constructor(private route: ActivatedRoute, private partidaService: PartidaService, private location: Location) { }
+  estadios: Estadio[] = []
+
+  constructor(private route: ActivatedRoute, private partidaService: PartidaService, private location: Location, private estadioService: EstadioService) { }
 
   ngOnInit(): void {
     this.carregarPartida()
+    this.estadioService.listar().subscribe(resp => this.estadios = resp)
   }
 
   carregarPartida(): void {

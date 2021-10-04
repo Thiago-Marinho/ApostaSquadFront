@@ -22,6 +22,13 @@ import { TimePartidaService } from './services/time-partida.service';
 import { ResultadoApostaService } from './services/resultado-aposta.service';
 import { PartidaService } from './services/partida.service';
 import { SituacaoService } from './services/situacao.service';
+import { ApostaComponent } from './components/aposta/aposta.component';
+import { EstadioComponent } from './components/estadio/estadio.component';
+import { PartidaComponent } from './components/partida/partida.component';
+import { SituacaoComponent } from './components/situacao/situacao.component';
+import { TimePartidaComponent } from './components/time-partida/time-partida.component';
+import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,12 +42,19 @@ import { SituacaoService } from './services/situacao.service';
     EstadioAlterarComponent,
     ResultadoApostaAlterarComponent,
     PartidaAlterarComponent,
-    TimePartidaAlterarComponent
+    TimePartidaAlterarComponent,
+    ApostaComponent,
+    EstadioComponent,
+    SituacaoComponent,
+    PartidaComponent,
+    TimePartidaComponent,
+    ResultadoApostaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     ClienteService,

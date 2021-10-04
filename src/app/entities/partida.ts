@@ -1,5 +1,5 @@
 export interface Partida{
-    id: number,
+    id?: number,
     data: String,
     descricao: String,
     id_estadio: number

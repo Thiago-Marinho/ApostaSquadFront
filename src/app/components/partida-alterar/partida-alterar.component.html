@@ -6,7 +6,7 @@
         <label class="form-label" for="estadio">Estadio:</label>
         <div class="form-group mb-3">
             <select name="estadio" id="estadio" class="form-select" [(ngModel)]="partida.id_estadio" required> 
-                <option *ngFor="let estadio of estadios" value="{{estadio.id}}" selected name="estadio">{{estadio.nome}}</option>
+                <option *ngFor="let estadio of estadios" value="{{estadio.id}}" selected name="estadio">{{estadio.descricao}}</option>
             </select>
         </div>
         <label for="data">Data: </label>

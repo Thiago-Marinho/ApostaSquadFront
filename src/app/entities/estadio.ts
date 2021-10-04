@@ -1,4 +1,4 @@
 export interface Estadio{
-    id: number,
+    id?: number,
     descricao: String
 }
