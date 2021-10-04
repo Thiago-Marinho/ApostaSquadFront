@@ -1,1 +1,27 @@
-<p>resultado-aposta works!</p>
+<div class="container">
+    <!-- LISTAR -->
+    <ul class="list-group">
+        <li *ngFor="let resultadoAposta of resultadoApostas" class="list-group-item">{{ resultadoAposta.id }} <button type="button" routerLink="resultadoAposta/alterar/{{resultadoAposta.id}}" class="btn btn-primary">Alterar</button></li>
+    </ul>
+    <br>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir novo resultadoAposta</button>
+
+    <div *ngIf="boolPostForm">
+        <form (ngSubmit)="onSubmit()">
+            <select name="status_time" id="status_time" [(ngModel)]="resultadoAposta.status_time">
+                <option value="true">Ganhar</option>
+                <option value="false">Perder</option>
+            </select>
+            <select [(ngModel)]="resultadoAposta.id_aposta">
+                <option *ngFor="let aposta of apostas" value="{{aposta.id}}">{{aposta.descricao}}</option>
+            </select>
+            <select [(ngModel)]="resultadoAposta.id_time_partida">
+                <option *ngFor="let timePartida of timesPartidas" value="{{timePartida.id}}">{{timePartida.id}}</option>
+            </select>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>
+
+
+
