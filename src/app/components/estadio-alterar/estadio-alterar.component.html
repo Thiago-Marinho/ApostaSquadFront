@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>Alterar estadio do id: {{estadio.id}}</h2>
+    <form >
+        <label for="nome">Nome do estádio: </label>
+        <input name="nome" value="{{ estadio.descricao }}"class="form form-control" id="nome" [(ngModel)]="estadio.descricao" required><br><br>
+        <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+        <button class="btn btn-success" (click)="alterar()">Salvar</button>
+    </form>
+</div>

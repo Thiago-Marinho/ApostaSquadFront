@@ -9,6 +9,11 @@ import { Estadio } from '../entities/estadio';
 export class EstadioService {
   private apiUrl = "http://localhost:8080"
   constructor(private http:HttpClient) { }
+
+  carregarEstadio(id: number): Observable<Estadio> {
+    return this.http.get<Estadio>(`${this.apiUrl}/${id}`)
+  }
+
   listar():Observable<Estadio[]>{
     return this.http.get<Estadio[]>(`${this.apiUrl}/listar`)
   }

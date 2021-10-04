@@ -1,6 +1,9 @@
 <div class="container">
-    <h2>Alterar element do id: {{element.id}}</h2>
+    <h2>Alterar time do id: {{time.id}}</h2>
     <form >
-        <!-- FORMULARIO -->
+        <label for="nome">Nome do time: </label>
+        <input name="nome" value="{{ time.nome }}"class="form form-control" id="nome" [(ngModel)]="time.nome" required><br><br>
+        <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+        <button class="btn btn-success" (click)="alterar()">Salvar</button>
     </form>
 </div>

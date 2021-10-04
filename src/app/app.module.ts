@@ -7,20 +7,51 @@ import { AppComponent } from './app.component';
 import { TimeComponent } from './components/time/time.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { TimeAlterarComponent } from './components/time-alterar/time-alterar.component';
+import { ClienteAlterarComponent } from './components/cliente-alterar/cliente-alterar.component';
+import { SituacaoAlterarComponent } from './components/situacao-alterar/situacao-alterar.component';
+import { ApostaAlterarComponent } from './components/aposta-alterar/aposta-alterar.component';
+import { EstadioAlterarComponent } from './components/estadio-alterar/estadio-alterar.component';
+import { ResultadoApostaAlterarComponent } from './components/resultado-aposta-alterar/resultado-aposta-alterar.component';
+import { PartidaAlterarComponent } from './components/partida-alterar/partida-alterar.component';
+import { TimePartidaAlterarComponent } from './components/time-partida-alterar/time-partida-alterar.component';
+import { ClienteService } from './services/cliente.service';
+import { ApostaService } from './services/aposta.service';
+import { EstadioService } from './services/estadio.service';
+import { TimeService } from './services/time.service';
+import { TimePartidaService } from './services/time-partida.service';
+import { ResultadoApostaService } from './services/resultado-aposta.service';
+import { PartidaService } from './services/partida.service';
+import { SituacaoService } from './services/situacao.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimeComponent,
     ClienteComponent,
-    TimeAlterarComponent
+    TimeAlterarComponent,
+    ClienteAlterarComponent,
+    SituacaoAlterarComponent,
+    ApostaAlterarComponent,
+    EstadioAlterarComponent,
+    ResultadoApostaAlterarComponent,
+    PartidaAlterarComponent,
+    TimePartidaAlterarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ClienteService,
+    ApostaService,
+    EstadioService,
+    TimeService,
+    TimePartidaService,
+    ResultadoApostaService,
+    PartidaService,
+    SituacaoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>Alterar cliente do id: {{cliente.id}}</h2>
+    <form >
+        <label for="nome">Nome do cliente: </label>
+        <input name="nome" value="{{ cliente.nome }}"class="form form-control" id="nome" [(ngModel)]="cliente.nome" required><br><br>
+        <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+        <button class="btn btn-success" (click)="alterar()">Salvar</button>
+    </form>
+</div>

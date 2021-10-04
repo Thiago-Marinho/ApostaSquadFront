@@ -1,0 +1,34 @@
+<h1 class="py-3 text-center">Atualizar Relação entre time e partida do id: {{ timePartida.id }}</h1>
+
+<div class="container my-3">
+    <div class="card" style="width: 32rem; margin: auto; float: none;">
+        <div class="card-body register-form">
+            <form >
+                <div>
+                    <label class="form-label" for="partida">Partida:</label>
+                    <div class="form-group mb-3">
+                        <select name="partida" id="partida" class="form-select" [(ngModel)]="timePartida.id_partida" required> 
+                            <option *ngFor="let partida of partidas" value="{{partida.id}}" selected name="partida">{{partida.descricao}}</option>
+                        </select>
+                    </div>       
+                    <label class="form-label" for="time">Time:</label>
+                    <div class="form-group mb-3">
+                        <select name="time" id="time" class="form-select" [(ngModel)]="timePartida.id_time" required> 
+                            <option *ngFor="let time of times" value="{{time.id}}" selected name="id_time">{{time.nome}}</option>
+                        </select>
+                    </div>       
+                    <label class="form-label" for="resultado">Resultado:</label>
+                    <div class="form-group mb-3">
+                        <select name="resultado" id="resultado" class="form-select" [(ngModel)]="timePartida.resultado" required> 
+                            <option value="{{false}}" selected name="resultado">Perdeu</option>
+                            <option value="{{false}}" selected name="resultado">Empate</option>
+                            <option value="{{true}}" selected name="resultado">Ganhou</option>
+                        </select>
+                    </div>                     
+                    <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+                    <button class="btn btn-success mx-2" (click)="alterar()">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,10 @@ export class PartidaService {
   private apiUrl = "http://localhost:8080"
 
   constructor(private http:HttpClient) { }
+
+  carregarPartida(id: number): Observable<Partida> {
+    return this.http.get<Partida>(`${this.apiUrl}/${id}`)
+  }
   
   listar():Observable<Partida[]>{
     return this.http.get<Partida[]>(`${this.apiUrl}/listar`)

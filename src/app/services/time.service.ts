@@ -11,6 +11,11 @@ export class TimeService {
 
   private apiUrl = "http://localhost:8080"
   constructor(private http:HttpClient) { }
+
+  carregarCliente(id: number): Observable<Time> {
+    return this.http.get<Time>(`${this.apiUrl}/${id}`)
+  }
+
   listar():Observable<Time[]>{
     return this.http.get<Time[]>(`${this.apiUrl}/listar`)
   }

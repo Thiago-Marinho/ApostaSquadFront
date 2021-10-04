@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>Alterar situação do id: {{situacao.id}}</h2>
+    <form >
+        <label for="descricao">Descricao da situacao: </label>
+        <input name="descricao" value="{{ situacao.descricao }}"class="form form-control" id="descricao" [(ngModel)]="situacao.descricao" required><br><br>
+        <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+        <button class="btn btn-success" (click)="alterar()">Salvar</button>
+    </form>
+</div>
