@@ -1,5 +1,5 @@
 export interface Aposta {
-    id: number,
+    id?: number,
     valor: number,
     descricao: string,
     id_cliente: number,

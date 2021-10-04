@@ -9,13 +9,13 @@ import { Time } from '../entities/time';
 })
 export class TimeService {
 
-  private apiUrl = "http://localhost:3000/time"
+  private apiUrl = "http://localhost:8080/time"
   constructor(private http:HttpClient) { }
   listar():Observable<Time[]>{
-    return this.http.get<Time[]>(`${this.apiUrl}`)
+    return this.http.get<Time[]>(`${this.apiUrl}/listar`)
   }
   incluir(time:Time):Observable<any>{
-    return this.http.post(`${this.apiUrl}`, time)
+    return this.http.post(`${this.apiUrl}/incluir`, time)
   }
   alterar(time:Time):Observable<any>{
     return this.http.post(`${this.apiUrl}/alterar`, time)

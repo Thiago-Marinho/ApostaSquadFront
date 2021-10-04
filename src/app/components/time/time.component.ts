@@ -30,10 +30,6 @@ export class TimeComponent implements OnInit {
     this.timeService.incluir(this.time).subscribe(resp=>console.log(resp))
   }
 
-  save(){
-    
-  }
-
   listar(): void
   {
     this.timeService.listar().subscribe(resp => this.times = resp)
