@@ -21,6 +21,6 @@ export class EstadioService {
     return this.http.post(`${this.apiUrl}/incluir`, estadio)
   }
   alterar(estadio:Estadio):Observable<any>{
-    return this.http.post(`${this.apiUrl}/alterar`, estadio)
+    return this.http.put(`${this.apiUrl}/alterar`, estadio)
   }
 }
