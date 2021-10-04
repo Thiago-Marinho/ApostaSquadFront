@@ -7,14 +7,31 @@
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo partida</button>
 
     <div *ngIf="boolPostForm">
-        <form (ngSubmit)="onSubmit()">
-            <input type="text" name="descricao" id="descricao" [(ngModel)]="partida.descricao" required>
-            <input type="datetime" name="data" id="data" [(ngModel)]="partida.data" required>
-            <select [(ngModel)]="partida.id_estadio">
-                <option *ngFor="let estadio of situacoes" value="{{estadio.id}}">{{estadio.descricao}}</option>
-            </select>
-            <input type="submit" value="Cadastrar">
-        </form>
+        <div class="card">
+            <form (ngSubmit)="onSubmit()" class="form-card">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-12 flex-column d-flex">
+                        <label for="descricao">Descrição da partida</label>
+                        <textarea name="descricao" id="descricao" [(ngModel)]="partida.descricao" maxlength="255" required></textarea>
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="data">Data da partida</label>
+                        <input type="date" name="data" id="data" [(ngModel)]="partida.data" required>
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="id_estadio">Estadio da partida</label>
+                        <select id="id_estadio" name="id_estadio"[(ngModel)]="partida.id_estadio">
+                            <option *ngFor="let estadio of situacoes" value="{{estadio.id}}">{{estadio.descricao}}</option>
+                        </select>
+                    </div>
+                </div>
+                
+              
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
     </div>
 </div>
 

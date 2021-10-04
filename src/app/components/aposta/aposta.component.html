@@ -7,17 +7,40 @@
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo aposta</button>
 
     <div *ngIf="boolPostForm">
-        <form (ngSubmit)="onSubmit()">
-            <input type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
-            <input type="number" name="valor" id="valor" [(ngModel)]="aposta.valor" required>
-            <select [(ngModel)]="aposta.id_situacao">
-                <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
-            </select>
-            <select [(ngModel)]="aposta.id_situacao">
-                <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
-            </select>
-            <input type="submit" value="Cadastrar">
-        </form>
+        <div class="card">
+            <form (ngSubmit)="onSubmit()">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-12 flex-column d-flex">
+                        <label for="descricao">Descricao da aposta</label>
+                        <input type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-12 flex-column d-flex">
+                        <label for="valor">Valor da aposta</label>
+                        <input type="number" name="valor" id="valor" [(ngModel)]="aposta.valor" required>
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="id_cliente">Id cliente</label>
+                        <select id="id_cliente" name="id_cliente" [(ngModel)]="aposta.id_cliente">
+                            <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="situacao_aposta">Situação aposta</label>
+                        <select id="situacao_aposta" name="situacao_aposta" [(ngModel)]="aposta.id_situacao">
+                            <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
     </div>
 </div>
 
