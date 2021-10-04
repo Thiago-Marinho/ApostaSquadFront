@@ -14,6 +14,8 @@ import { PartidaComponent } from './components/partida/partida.component';
 import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
 import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimePartidaComponent } from './components/time-partida/time-partida.component';
+import { ClienteAlterarComponent } from './components/cliente-alterar/cliente-alterar.component';
+import { PartidaAlterarComponent } from './components/partida-alterar/partida-alterar.component';
 
 const routes: Routes = [
   { path: "time", component: TimeComponent},
@@ -21,11 +23,12 @@ const routes: Routes = [
   { path: "aposta/alterar/:id", component: ApostaAlterarComponent},
   { path: "resultadoAposta/alterar/:id", component: ResultadoApostaAlterarComponent},
   { path: "estadio/alterar/:id", component: EstadioAlterarComponent},
-  { path: "cliente/alterar/:id", component: TimeAlterarComponent},
+  { path: "cliente/alterar/:id", component: ClienteAlterarComponent},
   { path: "timePartida/alterar/:id", component: TimePartidaAlterarComponent},
+  { path: "partida/alterar/:id", component: PartidaAlterarComponent},
   { path: "situacao/alterar/:id", component: SituacaoAlterarComponent},
   { path: "time/alterar/:id", component: TimeAlterarComponent},
-  {path: "cliente", component:ClienteComponent},
+  {path: "cliente", component: ClienteComponent},
   { path: "aposta", component: ApostaComponent},
   { path: "estadio", component: EstadioComponent},
   { path: "partida", component: PartidaComponent},

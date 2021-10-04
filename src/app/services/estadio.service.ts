@@ -7,7 +7,7 @@ import { Estadio } from '../entities/estadio';
   providedIn: 'root'
 })
 export class EstadioService {
-  private apiUrl = "http://localhost:8080"
+  private apiUrl = "http://localhost:8080/estadio"
   constructor(private http:HttpClient) { }
 
   carregarEstadio(id: number): Observable<Estadio> {
