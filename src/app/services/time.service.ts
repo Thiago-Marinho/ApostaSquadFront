@@ -1,7 +1,8 @@
-import { Time } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Time } from '../entities/time';
 
 @Injectable({
   providedIn: 'root'
