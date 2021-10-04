@@ -8,6 +8,12 @@ import { ClienteComponent } from './components/cliente/cliente.component';
 import { TimeAlterarComponent } from './components/time-alterar/time-alterar.component';
 import { TimePartidaAlterarComponent } from './components/time-partida-alterar/time-partida-alterar.component';
 import { TimeComponent } from './components/time/time.component';
+import { ApostaComponent } from './components/aposta/aposta.component';
+import { EstadioComponent } from './components/estadio/estadio.component';
+import { PartidaComponent } from './components/partida/partida.component';
+import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
+import { SituacaoComponent } from './components/situacao/situacao.component';
+import { TimePartidaComponent } from './components/time-partida/time-partida.component';
 
 const routes: Routes = [
   { path: "time", component: TimeComponent},
@@ -19,7 +25,14 @@ const routes: Routes = [
   { path: "timePartida/alterar/:id", component: TimePartidaAlterarComponent},
   { path: "situacao/alterar/:id", component: SituacaoAlterarComponent},
   { path: "time/alterar/:id", component: TimeAlterarComponent},
-  {path: "cliente", component:ClienteComponent}
+  {path: "cliente", component:ClienteComponent},
+  { path: "aposta", component: ApostaComponent},
+  { path: "estadio", component: EstadioComponent},
+  { path: "partida", component: PartidaComponent},
+  { path: "resultadoAposta", component: ResultadoApostaComponent},
+  { path: "situacao", component: SituacaoComponent},
+  { path: "timePartida", component: TimePartidaComponent},
+
 ];
 
 @NgModule({
