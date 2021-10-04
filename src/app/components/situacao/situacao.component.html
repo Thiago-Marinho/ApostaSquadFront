@@ -7,9 +7,16 @@
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo situacao</button>
 
     <div *ngIf="boolPostForm">
-        <form (ngSubmit)="onSubmit()">
-            <input type="text" name="descricao" id="descricao" [(ngModel)]="situacao.descricao" required>
-            <input type="submit" value="Cadastrar">
-        </form>
+        <div class="card">            
+            <form (ngSubmit)="onSubmit()">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="descricao">Descrição da situação</label>
+                        <input type="text" name="descricao" id="descricao" [(ngModel)]="situacao.descricao" required>
+                    </div>
+                </div>
+                <input class="my-submit-button" type="submit" value="Cadastrar">
+            </form>
+        </div>
     </div>
 </div>

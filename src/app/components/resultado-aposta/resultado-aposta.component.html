@@ -7,19 +7,34 @@
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo resultadoAposta</button>
 
     <div *ngIf="boolPostForm">
-        <form (ngSubmit)="onSubmit()">
-            <select name="status_time" id="status_time" [(ngModel)]="resultadoAposta.status_time">
-                <option value="true">Ganhar</option>
-                <option value="false">Perder</option>
-            </select>
-            <select [(ngModel)]="resultadoAposta.id_aposta">
-                <option *ngFor="let aposta of apostas" value="{{aposta.id}}">{{aposta.descricao}}</option>
-            </select>
-            <select [(ngModel)]="resultadoAposta.id_time_partida">
-                <option *ngFor="let timePartida of timesPartidas" value="{{timePartida.id}}">{{timePartida.id}}</option>
-            </select>
-            <input type="submit" value="Cadastrar">
-        </form>
+        <div class="card">
+            <form (ngSubmit)="onSubmit()">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="id_aposta">Id aposta</label>
+                        <select id="id_aposta" name="id_aposta" [(ngModel)]="resultadoAposta.id_aposta">
+                            <option *ngFor="let aposta of apostas" value="{{aposta.id}}">{{aposta.descricao}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="id_time_aposta">Id time-aposta</label>
+                        <select id="id_time_aposta" name="id_time_aposta" [(ngModel)]="resultadoAposta.id_time_partida">
+                            <option *ngFor="let timePartida of timesPartidas" value="{{timePartida.id}}">{{timePartida.id}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="status_time">Status time</label>
+                        <select name="status_time" id="status_time" [(ngModel)]="resultadoAposta.status_time">
+                            <option value="true">Ganhar</option>
+                            <option value="false">Perder</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
     </div>
 </div>
 
