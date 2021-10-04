@@ -4,7 +4,7 @@
         <li *ngFor="let resultadoAposta of resultadoApostas" class="list-group-item">{{ resultadoAposta.id }} <button type="button" routerLink="resultadoAposta/alterar/{{resultadoAposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
-    <button class="btn btn-success" (click)="showPostForm()">Incluir novo resultadoAposta</button>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir nova relação entre Aposta e Resultado</button>
 
     <div *ngIf="boolPostForm">
         <div class="card">
@@ -32,7 +32,7 @@
                         </select>
                     </div>
                 </div>
-                <input type="submit" value="Cadastrar">
+                <input class="my-submit-button" type="submit" value="Cadastrar">
             </form>
         </div>
     </div>

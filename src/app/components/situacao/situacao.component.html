@@ -4,7 +4,7 @@
         <li *ngFor="let situacao of situacaos" class="list-group-item">{{ situacao.descricao }} <button type="button" routerLink="situacao/alterar/{{situacao.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
-    <button class="btn btn-success" (click)="showPostForm()">Incluir novo situacao</button>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir nova situacao</button>
 
     <div *ngIf="boolPostForm">
         <div class="card">            

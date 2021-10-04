@@ -1,9 +1,15 @@
-<div class="container">
-    <h2>Alterar time do id: {{time.id}}</h2>
-    <form >
-        <label for="nome">Nome do time: </label>
-        <input name="nome" value="{{ time.nome }}"class="form form-control" id="nome" [(ngModel)]="time.nome" required><br><br>
-        <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
-        <button class="btn btn-success" (click)="alterar()">Salvar</button>
-    </form>
-</div> 
+<h1 class="py-3 text-center">Alterar time do id: {{time.id}}</h1>
+
+<div class="container my-3">
+    <div class="card" style="width: 32rem; margin: auto; float: none;">
+        <div class="card-body register-form">    
+            <form >
+                <label for="nome">Nome do time: </label>
+                <input name="nome" value="{{ time.nome }}"class="form form-control" id="nome" [(ngModel)]="time.nome" required><br><br>
+                <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+                <button class="btn btn-success" (click)="alterar()">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -12,7 +12,7 @@ export class TimeService {
   private apiUrl = "http://localhost:8080/time"
   constructor(private http:HttpClient) { }
 
-  carregarCliente(id: number): Observable<Time> {
+  carregarTime(id: number): Observable<Time> {
     return this.http.get<Time>(`${this.apiUrl}/${id}`)
   }
 

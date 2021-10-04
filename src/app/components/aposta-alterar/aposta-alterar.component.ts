@@ -2,7 +2,12 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Aposta } from 'src/app/entities/aposta';
+import { Cliente } from 'src/app/entities/cliente';
+import { Situacao } from 'src/app/entities/situacao';
 import { ApostaService } from 'src/app/services/aposta.service';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { SituacaoService } from 'src/app/services/situacao.service';
+import { SituacaoComponent } from '../situacao/situacao.component';
 
 @Component({
   selector: 'app-aposta-alterar',
@@ -19,7 +24,20 @@ export class ApostaAlterarComponent implements OnInit {
     id_situacao: 0
   }
 
-  constructor(private route: ActivatedRoute, private apostaService: ApostaService, private location: Location) { }
+  cliente: Cliente = {
+    id: 0,
+    nome: ''
+  }
+
+  situacao: Situacao = {
+    id: 0,
+    descricao: ''
+  }
+
+  clientes: Cliente[] = []
+  situacoes: Situacao[] = []
+
+  constructor(private route: ActivatedRoute, private apostaService: ApostaService, private location: Location, private clienteService: ClienteService, private situacaoService: SituacaoService) { }
 
   ngOnInit(): void {
     this.carregarAposta()

@@ -16,8 +16,10 @@ import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimePartidaComponent } from './components/time-partida/time-partida.component';
 import { ClienteAlterarComponent } from './components/cliente-alterar/cliente-alterar.component';
 import { PartidaAlterarComponent } from './components/partida-alterar/partida-alterar.component';
+import { IndexComponent } from './components/index/index.component';
 
 const routes: Routes = [
+  {path: "", component: IndexComponent},
   { path: "time", component: TimeComponent},
   { path: "time/alterar/:id", component: TimeAlterarComponent},
   { path: "aposta/alterar/:id", component: ApostaAlterarComponent},

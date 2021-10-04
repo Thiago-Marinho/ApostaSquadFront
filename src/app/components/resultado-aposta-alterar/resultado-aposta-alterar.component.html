@@ -1,1 +1,37 @@
-<p>resultado-aposta-alterar works!</p>
+<h1 class="py-3 text-center">Alterar ResultadoAposta</h1>
+
+<div class="container my-3">
+    <div class="card" style="width: 32rem; margin: auto; float: none;">
+        <div class="card-body register-form">
+            <h3>Partida: {{ partida.descricao }}</h3>
+            <h3>Time: {{ time.nome }}</h3>
+            <form>
+                <label for="aposta">Aposta: </label>
+                <div class="form-group mb-3">
+                    <select name="aposta" id="aposta" class="form-select" [(ngModel)]="resultadoAposta.id_aposta" required> 
+                        <option *ngFor="let aposta of apostas" value="{{aposta.id}}" selected name="aposta">{{aposta.descricao}}</option>
+                    </select>
+                </div>
+                <label for="timePartida">Identificador da partida-time: </label>
+                <div class="form-group mb-3">
+                    <select name="timePartida" id="timePartida" class="form-select" [(ngModel)]="resultadoAposta.id_time_partida" required> 
+                        <option *ngFor="let timePartida of timesPartidas" value="{{timePartida.id}}" selected name="timePartida">{{timePartida.id}}</option>
+                    </select>
+                </div>
+                <label for="status">Ganha ou perde? </label>
+                <div class="form-group mb-3">
+                    <select name="status" id="status" class="form-select" [(ngModel)]="resultadoAposta.status_time" required> 
+                        <option value="{{false}}" selected name="perde">Vai perder</option>
+                        <option value="{{true}}" selected name="ganha">Vai ganhar</option>
+                    </select>
+                </div>
+                <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+                <button class="btn btn-success" (click)="alterar()">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    
+</div>

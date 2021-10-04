@@ -1,1 +1,29 @@
-<p>aposta-alterar works!</p>
+<h1 class="py-3 text-center">Alterar aposta do id: {{aposta.id}}</h1>
+
+<div class="container my-3">
+    <div class="card" style="width: 32rem; margin: auto; float: none;">
+        <div class="card-body register-form">
+            <form>
+                <label for="descricao">Descrição da aposta: </label>
+                <input name="descricao" value="{{ aposta.descricao }}"class="form form-control" id="descricao" [(ngModel)]="aposta.descricao" required><br>
+                <label for="valor">Valor da aposta: </label>
+                <input name="valor" value="{{ aposta.valor }}"class="form form-control" id="valor" [(ngModel)]="aposta.valor" required><br>
+                <label for="cliente">Cliente: </label>
+                <div class="form-group mb-3">
+                    <select name="cliente" id="cliente" class="form-select" [(ngModel)]="aposta.id_cliente" required> 
+                        <option *ngFor="let cliente of clientes" value="{{cliente.id}}" selected name="cliente">{{cliente.nome}}</option>
+                    </select>
+                </div>
+                <label for="situacao">Situação da aposta: </label>
+                <div class="form-group mb-3">
+                    <select name="situacao" id="situacao" class="form-select" [(ngModel)]="aposta.id_situacao" required> 
+                        <option *ngFor="let situacao of situacoes" value="{{situacao.id}}" selected name="situacao">{{situacao.descricao}}</option>
+                    </select>
+                </div>
+                <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
+                <button class="btn btn-success" (click)="alterar()">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,42 +1,39 @@
 <div class="container-fluid px-1 py-5 mx-auto">
+    <!-- LISTAR -->
+    <ul class="list-group">
+        <li *ngFor="let timePartida of timesPartidas" class="list-group-item">{{ timePartida.id }} <button type="button" routerLink="timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
+    </ul>
+    <br>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir nova relação entre Time e Partida</button>
 
-            <!-- LISTAR -->
-            <ul class="list-group">
-                <li *ngFor="let timePartida of timesPartidas" class="list-group-item">{{ timePartida.id }} <button type="button" routerLink="timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
-            </ul>
-            <br>
-            <button class="btn btn-success" (click)="showPostForm()">Incluir novo timePartida</button>
-
-                <div *ngIf="boolPostForm">
-                    <div class="card">
-                    <form (ngSubmit)="onSubmit()" class="form-card">
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Time</label>
-                                <select [(ngModel)]="timePartida.id_partida" required>
-                                    <option *ngFor="let partida of partidas" value="{{partida.id}}">{{partida.descricao}}</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Partida</label>
-                                <select [(ngModel)]="timePartida.id_time" required>
-                                    <option *ngFor="let time of times" value="{{time.id}}">{{time.nome}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Resultado partida</label>
-                                <select name="resultado" id="resultado" [(ngModel)]="timePartida.resultado" required>
-                                    <option value="true">Ganhou</option>
-                                    <option value="false">Perdeu</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <input class="my-submit-button" type="submit" value="Cadastrar">
-                    </form>
-                    </div>
+    <div *ngIf="boolPostForm">
+        <div class="card">
+        <form (ngSubmit)="onSubmit()" class="form-card">
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label class="form-control-label px-3">Time</label>
+                    <select [(ngModel)]="timePartida.id_partida" required>
+                        <option *ngFor="let partida of partidas" value="{{partida.id}}">{{partida.descricao}}</option>
+                    </select>
                 </div>
-
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label class="form-control-label px-3">Partida</label>
+                    <select [(ngModel)]="timePartida.id_time" required>
+                        <option *ngFor="let time of times" value="{{time.id}}">{{time.nome}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label class="form-control-label px-3">Resultado partida</label>
+                    <select name="resultado" id="resultado" [(ngModel)]="timePartida.resultado" required>
+                        <option value="true">Ganhou</option>
+                        <option value="false">Perdeu</option>
+                    </select>
+                </div>
+            </div>
+            <input class="my-submit-button" type="submit" value="Cadastrar">
+        </form>
+        </div>
+    </div>
 </div>

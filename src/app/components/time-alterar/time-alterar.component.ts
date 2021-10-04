@@ -24,7 +24,7 @@ export class TimeAlterarComponent implements OnInit {
 
   carregarTime(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'))
-    this.timeService.carregarCliente(id).subscribe(resp => this.time = resp)
+    this.timeService.carregarTime(id).subscribe(resp => this.time = resp)
   }
 
   alterar(): void {

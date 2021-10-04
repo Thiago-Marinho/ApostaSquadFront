@@ -29,6 +29,7 @@ import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimePartidaComponent } from './components/time-partida/time-partida.component';
 import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
 import { FormsModule } from '@angular/forms';
+import { IndexComponent } from './components/index/index.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FormsModule } from '@angular/forms';
     SituacaoComponent,
     PartidaComponent,
     ResultadoApostaComponent,
-    TimePartidaComponent
+    TimePartidaComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@
         <li *ngFor="let aposta of apostas" class="list-group-item">{{ aposta.descricao }} <button type="button" routerLink="aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
-    <button class="btn btn-success" (click)="showPostForm()">Incluir novo aposta</button>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir nova aposta</button>
 
     <div *ngIf="boolPostForm">
         <div class="card">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <input type="submit" value="Cadastrar">
+                <input class="my-submit-button" type="submit" value="Cadastrar">
             </form>
         </div>
     </div>
