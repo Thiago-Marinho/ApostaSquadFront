@@ -8,7 +8,7 @@ import { Partida } from '../entities/partida';
 })
 export class PartidaService {
   
-  private apiUrl = "http://localhost:8080"
+  private apiUrl = "http://localhost:8080/partida"
 
   constructor(private http:HttpClient) { }
 
@@ -23,6 +23,6 @@ export class PartidaService {
     return this.http.post(`${this.apiUrl}/incluir`, partida)
   }
   alterar(partida:Partida):Observable<any>{
-    return this.http.post(`${this.apiUrl}/alterar`, partida)
+    return this.http.put(`${this.apiUrl}/alterar`, partida)
   }
 }
