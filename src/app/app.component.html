@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Sistema de Apostas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="aposta">Aposta</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="estadio">Estadio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="partida">Partida</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="resultadoAposta">ResultadoAposta</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="situacao">Situacao</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="time">Time</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="timePartida">TimePartida</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
