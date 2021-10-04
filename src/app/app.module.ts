@@ -47,8 +47,8 @@ import { FormsModule } from '@angular/forms';
     EstadioComponent,
     SituacaoComponent,
     PartidaComponent,
-    TimePartidaComponent,
-    ResultadoApostaComponent
+    ResultadoApostaComponent,
+    TimePartidaComponent
   ],
   imports: [
     BrowserModule,

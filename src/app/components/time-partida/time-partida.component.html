@@ -1,1 +1,24 @@
-<p>time-partida works!</p>
+<div class="container">
+    <!-- LISTAR -->
+    <ul class="list-group">
+        <li *ngFor="let timePartida of timesPartidas" class="list-group-item">{{ timePartida.id }} <button type="button" routerLink="timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
+    </ul>
+    <br>
+    <button class="btn btn-success" (click)="showPostForm()">Incluir novo timePartida</button>
+
+    <div *ngIf="boolPostForm">
+        <form (ngSubmit)="onSubmit()">
+            <select name="resultado" id="resultado" [(ngModel)]="timePartida.resultado" required>
+                <option value="true">Ganhou</option>
+                <option value="false">Perdeu</option>
+            </select>
+            <select [(ngModel)]="timePartida.id_partida" required>
+                <option *ngFor="let partida of partidas" value="{{partida.id}}">{{partida.descricao}}</option>
+            </select>
+            <select [(ngModel)]="timePartida.id_time" required>
+                <option *ngFor="let time of times" value="{{time.id}}">{{time.nome}}</option>
+            </select>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>

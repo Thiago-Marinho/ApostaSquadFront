@@ -7,9 +7,9 @@ import { ResultadoApostaService } from 'src/app/services/resultado-aposta.servic
 import { TimePartidaService } from 'src/app/services/time-partida.service';
 
 @Component({
-  selector: 'app-resultado-resultadoAposta',
-  templateUrl: './resultado-Aposta.component.html',
-  styleUrls: ['./resultado-Aposta.component.css']
+  selector: 'app-resultadoAposta',
+  templateUrl: './resultado-aposta.component.html',
+  styleUrls: ['./resultado-aposta.component.css']
 })
 export class ResultadoApostaComponent implements OnInit {
 
