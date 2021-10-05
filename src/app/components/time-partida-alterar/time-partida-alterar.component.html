@@ -7,13 +7,13 @@
                 <div>
                     <label class="form-label" for="partida">Partida:</label>
                     <div class="form-group mb-3">
-                        <select name="partida" id="partida" class="form-select" [(ngModel)]="timePartida.id_partida" required> 
+                        <select name="partida" id="partida" class="form-select" [(ngModel)]="timePartida.idPartida" required> 
                             <option *ngFor="let partida of partidas" value="{{partida.id}}" selected name="partida">{{partida.descricao}}</option>
                         </select>
                     </div>       
                     <label class="form-label" for="time">Time:</label>
                     <div class="form-group mb-3">
-                        <select name="time" id="time" class="form-select" [(ngModel)]="timePartida.id_time" required> 
+                        <select name="time" id="time" class="form-select" [(ngModel)]="timePartida.idTime" required> 
                             <option *ngFor="let time of times" value="{{time.id}}" selected name="id_time">{{time.nome}}</option>
                         </select>
                     </div>       

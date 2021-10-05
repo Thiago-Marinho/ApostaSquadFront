@@ -15,7 +15,7 @@ export class TimePartidaComponent implements OnInit {
 
 
   boolPostForm: boolean = false
-  timePartida: TimePartida = {id_partida:0, id_time:0, resultado:false}
+  timePartida: TimePartida = {idPartida:0, idTime:0, resultado:false}
   timesPartidas: TimePartida[]=[]
   partidas: Partida[]=[]
   times: Time[]=[]
@@ -36,7 +36,7 @@ export class TimePartidaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.timePartidaService.incluir(this.timePartida).subscribe(resp=>console.log(resp))
+    this.timePartidaService.incluir(this.timePartida).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

@@ -27,7 +27,7 @@ export class SituacaoComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.situacaoService.incluir(this.situacao).subscribe(resp=>console.log(resp))
+    this.situacaoService.incluir(this.situacao).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

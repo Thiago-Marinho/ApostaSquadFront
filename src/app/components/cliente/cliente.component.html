@@ -1,7 +1,7 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let cliente of clientes" class="list-group-item">{{ cliente.nome }} <button type="button" routerLink="/cliente/alterar/{{cliente.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let cliente of clientes" class="list-group-item d-flex justify-content-between">{{ cliente.nome }} <button type="button" routerLink="/cliente/alterar/{{cliente.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo cliente</button>

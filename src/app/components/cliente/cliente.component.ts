@@ -28,7 +28,7 @@ export class ClienteComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.clienteService.incluir(this.cliente).subscribe(resp=>console.log(resp))
+    this.clienteService.incluir(this.cliente).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

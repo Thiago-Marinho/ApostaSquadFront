@@ -30,7 +30,7 @@ export class PartidaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.partidaService.incluir(this.partida).subscribe(resp=>console.log(resp))
+    this.partidaService.incluir(this.partida).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

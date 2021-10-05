@@ -18,8 +18,8 @@ export class TimePartidaAlterarComponent implements OnInit {
   timePartida: TimePartida = {
     id: 0,
     resultado: false,
-    id_partida: 0,
-    id_time: 0
+    idPartida: 0,
+    idTime: 0
   }
 
   times: Time[] = []

@@ -35,7 +35,7 @@ export class ResultadoApostaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.resultadoApostaService.incluir(this.resultadoAposta).subscribe(resp=>console.log(resp))
+    this.resultadoApostaService.incluir(this.resultadoAposta).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

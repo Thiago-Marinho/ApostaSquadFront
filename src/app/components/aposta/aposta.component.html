@@ -1,7 +1,7 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let aposta of apostas" class="list-group-item">{{ aposta.descricao }} <button type="button" routerLink="/aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let aposta of apostas" class="list-group-item d-flex justify-content-between">{{ aposta.descricao }} <button style="margin-left: auto;" type="button" routerLink="/aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir nova aposta</button>
@@ -11,7 +11,7 @@
             <form (ngSubmit)="onSubmit()">
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-12 flex-column d-flex">
-                        <label for="descricao">Descricao da aposta</label>
+                        <label for="descricao">Descrição da aposta</label>
                         <input type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
-                        <label for="id_cliente">Id cliente</label>
+                        <label for="id_cliente">Cliente</label>
                         <select id="id_cliente" name="id_cliente" [(ngModel)]="aposta.id_cliente">
                             <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
                         </select>
@@ -36,6 +36,23 @@
                             <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
                         </select>
                     </div>
+
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="partida">Partida</label>
+                        <select (ngModelChange)="validar()" id="partida" name="partida" [(ngModel)]="partida.id">
+                            <option att-validate *ngFor="let partida of partidas" value="{{partida.id}}">{{partida.descricao}}</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="boolshowTimes" class="form-group col-sm-6 flex-column d-flex">
+                        <label for="time">Quem vai ganhar?</label>
+                        <select id="time" name="time">
+                            <option id="opt" att-validate *ngFor="let time of timesFiltrados" value="{{time.id}}" onchange="validar()">{{time.nome}}</option>
+                        </select>
+                    </div>
+                    <button type="button" (click)="validar()">Load</button>
                 </div>
 
                 <input class="my-submit-button" type="submit" value="Cadastrar">
@@ -43,6 +60,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+</script>
 
 
 

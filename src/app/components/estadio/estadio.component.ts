@@ -30,7 +30,7 @@ export class EstadioComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.estadioService.incluir(this.estadio).subscribe(resp=>console.log(resp))
+    this.estadioService.incluir(this.estadio).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
   listar(): void

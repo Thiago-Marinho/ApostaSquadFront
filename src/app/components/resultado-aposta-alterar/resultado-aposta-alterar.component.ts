@@ -31,8 +31,8 @@ export class ResultadoApostaAlterarComponent implements OnInit {
 
   timePartida: TimePartida = {
     resultado: false,
-    id_partida: 0,
-    id_time: 0
+    idPartida: 0,
+    idTime: 0
   }
 
   time: Time = {
@@ -54,8 +54,8 @@ export class ResultadoApostaAlterarComponent implements OnInit {
     this.apostaService.listar().subscribe(resp => this.apostas = resp)
     this.timePartidaService.listar().subscribe(resp => this.timesPartidas = resp)
     this.timePartidaService.carregarTimePartida(this.resultadoAposta.id_time_partida).subscribe(resp => this.timePartida = resp)
-    this.timeService.carregarTime(this.timePartida.id_time).subscribe(resp => this.time = resp)
-    this.partidaService.carregarPartida(this.timePartida.id_partida).subscribe(resp => this.partida = resp)
+    this.timeService.carregarTime(this.timePartida.idTime).subscribe(resp => this.time = resp)
+    this.partidaService.carregarPartida(this.timePartida.idPartida).subscribe(resp => this.partida = resp)
   }
 
   carregarResultadoAposta(): void {
