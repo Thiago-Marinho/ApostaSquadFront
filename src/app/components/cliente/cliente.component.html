@@ -7,10 +7,17 @@
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo cliente</button>
 
     <div *ngIf="boolPostForm">
-        <form (ngSubmit)="onSubmit()">
-            <input type="text" name="nome" id="nome" [(ngModel)]="cliente.nome" required>
-            <input  class="my-submit-button" type="submit" value="Cadastrar">
-        </form>
+        <div class="card">            
+            <form (ngSubmit)="onSubmit()" class="form-card">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label for="descricao">Descrição da situação</label>
+                        <input type="text" name="nome" id="nome" [(ngModel)]="cliente.nome" required>
+                    </div>
+                </div>
+                <input class="my-submit-button" type="submit" value="Cadastrar">
+            </form>
+        </div>
     </div>
 </div>
 
