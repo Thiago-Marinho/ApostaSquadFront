@@ -10,13 +10,13 @@
                 <input name="valor" value="{{ aposta.valor }}"class="form form-control" id="valor" [(ngModel)]="aposta.valor" required><br>
                 <label for="cliente">Cliente: </label>
                 <div class="form-group mb-3">
-                    <select name="cliente" id="cliente" class="form-select" [(ngModel)]="aposta.id_cliente" required> 
+                    <select name="cliente" id="cliente" class="form-select" [(ngModel)]="aposta.idCliente" required> 
                         <option *ngFor="let cliente of clientes" value="{{cliente.id}}" selected name="cliente">{{cliente.nome}}</option>
                     </select>
                 </div>
                 <label for="situacao">Situação da aposta: </label>
                 <div class="form-group mb-3">
-                    <select name="situacao" id="situacao" class="form-select" [(ngModel)]="aposta.id_situacao" required> 
+                    <select name="situacao" id="situacao" class="form-select" [(ngModel)]="aposta.idSituacao" required> 
                         <option *ngFor="let situacao of situacoes" value="{{situacao.id}}" selected name="situacao">{{situacao.descricao}}</option>
                     </select>
                 </div>

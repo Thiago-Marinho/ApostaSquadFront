@@ -23,6 +23,6 @@ export class TimeService {
     return this.http.post(`${this.apiUrl}/incluir`, time)
   }
   alterar(time:Time):Observable<any>{
-    return this.http.post(`${this.apiUrl}/alterar`, time)
+    return this.http.put(`${this.apiUrl}/alterar`, time)
   }
 }

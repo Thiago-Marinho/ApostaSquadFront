@@ -20,8 +20,8 @@ export class ApostaAlterarComponent implements OnInit {
     id: 0,
     valor: 0,
     descricao: '',
-    id_cliente: 0,
-    id_situacao: 0
+    idCliente: 0,
+    idSituacao: 0
   }
 
   cliente: Cliente = {

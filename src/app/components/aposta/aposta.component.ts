@@ -23,8 +23,9 @@ export class ApostaComponent implements OnInit {
 
 
   boolPostForm: boolean = false
+  quemganha: any
   boolshowTimes: boolean = false
-  aposta: Aposta = {descricao:"", id_cliente:0, id_situacao:0, valor:0}
+  aposta: Aposta = {id: 0,descricao:"", idCliente:0, idSituacao:0, valor:0}
   apostas: Aposta[] = []
   situacoes: Situacao[]=[]
   clientes: Cliente[]=[]
@@ -33,12 +34,13 @@ export class ApostaComponent implements OnInit {
   timesPartidas: TimePartida[] = []
   idFinal:any=0
   indicesTimePartida: any[]=[]
-  apostaResultado: ResultadoAposta ={
+  apostaResultado1: ResultadoAposta ={
     id:0,
     status_time: false,
     id_aposta: 0,
     id_time_partida: 0
   }
+  
   partida: Partida = {
     id: 0,
     data: '',
@@ -80,9 +82,22 @@ export class ApostaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.apostaService.incluir(this.aposta).subscribe(resp=>{this.hidePostForm(); this.listar(); this.idFinal = resp.id})
-    this.apostaResultado.id_aposta=this.idFinal;
-    this.resultadoApostaService.incluir(this.apostaResultado).subscribe()
+    this.aposta.idCliente = Number(this.aposta.idCliente)
+    this.aposta.idSituacao = Number(this.aposta.idSituacao)
+
+    this.apostaService.incluir(this.aposta).subscribe((resp)=>{this.apostaService.listar().subscribe(resp => this.apostas = resp)})
+    this.apostaResultado1.id_aposta=Number(this.apostas[this.apostas.length - 1].id);
+    if(this.quemganha == 'false') {
+      console.log("indice", this.indicesTimePartida[0]);
+      this.apostaResultado1.id_time_partida= this.indicesTimePartida[0]
+      this.apostaResultado1.status_time = false
+    } else {
+      this.apostaResultado1.id_time_partida = Number(this.quemganha)
+      this.apostaResultado1.status_time = true
+    }
+    console.log(this.apostaResultado1);
+    
+    this.resultadoApostaService.incluir(this.apostaResultado1).subscribe((resp) => {this.hidePostForm(); this.listar(); console.log(resp)})
   }
 
   listar(): void
