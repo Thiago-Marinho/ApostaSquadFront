@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Estadio } from 'src/app/entities/estadio';
 import { Partida } from 'src/app/entities/partida';
 import { EstadioService } from 'src/app/services/estadio.service';
@@ -16,7 +17,15 @@ export class PartidaComponent implements OnInit {
   partidas: Partida[] = []
   situacoes: Estadio[]=[]
 
-  constructor(private partidaService: PartidaService, private estadioService: EstadioService) { }
+  form: FormGroup
+
+  constructor(private partidaService: PartidaService, private estadioService: EstadioService, private formBuilder: FormBuilder) { 
+    this.form = this.formBuilder.group({
+      descricao: ['', [
+        Validators.required
+      ]]
+    })
+  }
 
   ngOnInit(): void {
     this.listar()

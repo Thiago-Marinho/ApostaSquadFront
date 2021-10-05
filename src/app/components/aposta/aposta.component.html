@@ -12,7 +12,10 @@
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-12 flex-column d-flex">
                         <label for="descricao">Descrição da aposta</label>
-                        <input type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
+                        <input formControlName="descricao" type="text" name="descricao" id="descricao" [(ngModel)]="aposta.descricao" required>
+                        <span class="error" *ngIf="form.controls.descricao.errors">
+                            Este campo é obrigatório!
+                        </span>
                     </div>
                 </div>
                 <div class="row justify-content-between text-left">
@@ -21,15 +24,18 @@
                         <input formControlName="valor" [(ngModel)]="aposta.valor" type="number" name="valor" id="valor"  min="10" max="100" required>
                         <span class="error" *ngIf="form.controls.valor.errors">
                             Valor inválido!
-                         </span>
+                        </span>
                     </div>
                 </div>
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label for="idCliente">Cliente</label>
-                        <select id="idCliente" name="idCliente" [(ngModel)]="aposta.idCliente">
+                        <select formControlName="cliente" id="idCliente" name="idCliente" [(ngModel)]="aposta.idCliente">
                             <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
                         </select>
+                        <span class="error" *ngIf="form.controls.cliente.errors">
+                            Este campo é obrigatório!
+                        </span>
                     </div>
 
 
@@ -38,28 +44,36 @@
                         <select id="situacao_aposta" name="situacao_aposta" [(ngModel)]="aposta.idSituacao">
                             <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
                         </select>
+                        
                     </div>
 
                 </div>
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
-                        <label for="partida">Partida</label>
-                        <select (ngModelChange)="validar()" id="partida" name="partida" [(ngModel)]="partida.id">
+                        <label  for="partida">Partida</label>
+                        <select formControlName="partida" (ngModelChange)="validar()" id="partida" name="partida" [(ngModel)]="partida.id">
                             <option att-validate *ngFor="let partida of partidas" value="{{partida.id}}">{{partida.descricao}}</option>
                         </select>
+                        <span class="error" *ngIf="form.controls.partida.errors">
+                            Este campo é obrigatório!
+                        </span>
                     </div>
 
                     <div *ngIf="boolshowTimes" class="form-group col-sm-6 flex-column d-flex">
                         <label for="time">Quem vai ganhar?</label>
-                        <select [(ngModel)]="quemganha" id="time" name="time">
+                        <select formControlName="time" [(ngModel)]="quemganha" id="time" name="time">
                             <option id="opt" att-validate *ngFor="let time of timesFiltrados; let i = index;" value="{{indicesTimePartida[i]}}" onchange="validar()">{{time.nome}}</option>
                             <option value="false">Empate</option>
                         </select>
+                        <span class="error" *ngIf="form.controls.time.errors">
+                            Este campo é obrigatório!
+                        </span>
                     </div>
-                    <button type="button" (click)="validar()">Load</button>
+                    
                 </div>
+                <button style="width: fit-content;" class="my-submit-button" (click)="validar()">Carregar times</button>
 
-                <input [disabled]="!form.valid" id="sbmit" class="my-submit-button" type="submit" value="Cadastrar">
+                <input *ngIf="form.valid" [disabled]="!form.valid" id="sbmit" class="my-submit-button" type="submit" value="Cadastrar">
             </form>
         </div>
     </div>

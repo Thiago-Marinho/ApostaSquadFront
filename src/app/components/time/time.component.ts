@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Time } from 'src/app/entities/time';
 import { TimeService } from 'src/app/services/time.service';
 
@@ -13,7 +14,15 @@ export class TimeComponent implements OnInit {
   time: Time = {nome:""}
   times: Time[] = []
 
-  constructor(private timeService: TimeService) { }
+  form: FormGroup
+
+  constructor(private timeService: TimeService, private formBuilder: FormBuilder) { 
+    this.form = this.formBuilder.group({
+      nome: ['', [
+        Validators.required
+      ]]
+    })
+  }
 
   ngOnInit(): void {
     this.listar()

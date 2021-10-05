@@ -8,11 +8,14 @@
 
     <div *ngIf="boolPostForm">
         <div class="card">
-            <form (ngSubmit)="onSubmit()" class="form-card">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-card">
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-12 flex-column d-flex">
                         <label for="descricao">Descrição da partida</label>
-                        <textarea name="descricao" id="descricao" [(ngModel)]="partida.descricao" maxlength="255" required></textarea>
+                        <textarea formControlName="descricao" name="descricao" id="descricao" [(ngModel)]="partida.descricao" maxlength="255" required></textarea>
+                        <span class="error" *ngIf="form.controls.descricao.errors">
+                            Este campo é obrigatório!
+                        </span>
                     </div>
                 </div>
                 <div class="row justify-content-between text-left">
@@ -27,9 +30,7 @@
                         </select>
                     </div>
                 </div>
-                
-              
-                <input class="my-submit-button" type="submit" value="Cadastrar">
+                <input *ngIf="form.valid" class="my-submit-button" type="submit" value="Cadastrar">
             </form>
         </div>
     </div>

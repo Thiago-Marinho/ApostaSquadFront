@@ -66,11 +66,23 @@ export class ApostaComponent implements OnInit {
     private formBuilder: FormBuilder 
   ) { 
     this.form = this.formBuilder.group({
-      valor: ['', [
+      valor: ['2', [
         Validators.min(10),
         Validators.max(100)
       ]
-      ]
+      ],
+      descricao: ['', [
+        Validators.required
+      ]],
+      cliente: ['', [
+        
+      ]],
+      partida: ['', [
+        
+      ]],
+      time: ['', [
+        
+      ]]
     })
   }
 
@@ -95,8 +107,11 @@ export class ApostaComponent implements OnInit {
   }
   onSubmit(){
     if(!this.form.valid) {
-      console.log('invalid data!')
+      alert('invalid data!')
+      document.getElementById('sbmit')?.classList.add('disabled-button')
       return
+    } else {
+      document.getElementById('sbmit')?.classList.remove('disabled-button')
     }
     
     this.aposta.idCliente = Number(this.aposta.idCliente)
