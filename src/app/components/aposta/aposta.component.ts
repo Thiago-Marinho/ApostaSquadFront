@@ -13,6 +13,7 @@ import {ResultadoAposta} from 'src/app/entities/resultado_aposta'
 import { SituacaoService } from 'src/app/services/situacao.service';
 import { TimePartidaService } from 'src/app/services/time-partida.service';
 import { TimeService } from 'src/app/services/time.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-aposta',
@@ -48,6 +49,8 @@ export class ApostaComponent implements OnInit {
     id_estadio: 0
   }
 
+  form: FormGroup
+
   @ViewChild('el')
   el!: ElementRef;
   timesFiltrados: Time[] = [];
@@ -59,8 +62,17 @@ export class ApostaComponent implements OnInit {
     private partidaService: PartidaService,
     private timeService: TimeService,
     private timePartidaService: TimePartidaService,
-    private resultadoApostaService : ResultadoApostaService
-  ) { }
+    private resultadoApostaService : ResultadoApostaService,
+    private formBuilder: FormBuilder 
+  ) { 
+    this.form = this.formBuilder.group({
+      valor: ['', [
+        Validators.min(10),
+        Validators.max(100)
+      ]
+      ]
+    })
+  }
 
   ngOnInit(): void {
     this.listar()
@@ -82,6 +94,11 @@ export class ApostaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
+    if(!this.form.valid) {
+      console.log('invalid data!')
+      return
+    }
+    
     this.aposta.idCliente = Number(this.aposta.idCliente)
     this.aposta.idSituacao = Number(this.aposta.idSituacao)
 

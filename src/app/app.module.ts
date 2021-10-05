@@ -28,7 +28,7 @@ import { PartidaComponent } from './components/partida/partida.component';
 import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimePartidaComponent } from './components/time-partida/time-partida.component';
 import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IndexComponent } from './components/index/index.component';
 
 @NgModule({
@@ -56,7 +56,8 @@ import { IndexComponent } from './components/index/index.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ClienteService,
