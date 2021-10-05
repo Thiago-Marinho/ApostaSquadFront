@@ -1,7 +1,7 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let aposta of apostas" class="list-group-item">{{ aposta.descricao }} <button type="button" routerLink="aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let aposta of apostas" class="list-group-item">{{ aposta.descricao }} <button type="button" routerLink="/aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir nova aposta</button>

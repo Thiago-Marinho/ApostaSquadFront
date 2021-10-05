@@ -1,7 +1,7 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let time of times" class="list-group-item">{{ time.nome }} <button type="button" routerLink="time/alterar/{{time.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let time of times" class="list-group-item">{{ time.nome }} <button type="button" routerLink="/time/alterar/{{time.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir novo time</button>

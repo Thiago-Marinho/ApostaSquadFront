@@ -10,7 +10,10 @@ import { EstadioService } from 'src/app/services/estadio.service';
 export class EstadioComponent implements OnInit {
 
   boolPostForm: boolean = false
-  estadio: Estadio = {descricao:""}
+  estadio: Estadio = {
+    id: 0,
+    descricao:""
+  }
   estadios: Estadio[] = []
 
   constructor(private estadioService: EstadioService) { }

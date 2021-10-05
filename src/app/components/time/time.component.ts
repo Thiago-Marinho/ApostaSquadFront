@@ -27,7 +27,9 @@ export class TimeComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
-    this.timeService.incluir(this.time).subscribe(resp=>console.log(resp))
+    this.timeService.incluir(this.time).subscribe(resp => this.listar())
+    this.hidePostForm()
+    
   }
 
   listar(): void

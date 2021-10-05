@@ -1,7 +1,7 @@
 <div class="container-fluid px-1 py-5 mx-auto">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let timePartida of timesPartidas" class="list-group-item">{{ timePartida.id }} <button type="button" routerLink="timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let timePartida of timesPartidas" class="list-group-item">{{ timePartida.id }} <button type="button" routerLink="/timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir nova relação entre Time e Partida</button>

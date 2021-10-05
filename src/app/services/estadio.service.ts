@@ -11,7 +11,7 @@ export class EstadioService {
   constructor(private http:HttpClient) { }
 
   carregarEstadio(id: number): Observable<Estadio> {
-    return this.http.get<Estadio>(`${this.apiUrl}/${id}`)
+    return this.http.get<Estadio>(`${this.apiUrl}/listar/${id}`)
   }
 
   listar():Observable<Estadio[]>{

@@ -1,7 +1,7 @@
 <div class="container">
     <!-- LISTAR -->
     <ul class="list-group">
-        <li *ngFor="let resultadoAposta of resultadoApostas" class="list-group-item">{{ resultadoAposta.id }} <button type="button" routerLink="resultadoAposta/alterar/{{resultadoAposta.id}}" class="btn btn-primary">Alterar</button></li>
+        <li *ngFor="let resultadoAposta of resultadoApostas" class="list-group-item">{{ resultadoAposta.id }} <button type="button" routerLink="/resultadoAposta/alterar/{{resultadoAposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
     <br>
     <button class="btn btn-success" (click)="showPostForm()">Incluir nova relação entre Aposta e Resultado</button>

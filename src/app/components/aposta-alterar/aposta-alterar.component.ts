@@ -46,6 +46,8 @@ export class ApostaAlterarComponent implements OnInit {
   carregarAposta(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'))
     this.apostaService.carregarAposta(id).subscribe(resp => this.aposta = resp)
+    this.clienteService.listar().subscribe(resp => this.clientes = resp)
+    this.situacaoService.listar().subscribe(resp => this.situacoes = resp)
   }
 
   alterar(): void {

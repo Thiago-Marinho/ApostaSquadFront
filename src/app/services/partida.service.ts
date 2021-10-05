@@ -13,7 +13,7 @@ export class PartidaService {
   constructor(private http:HttpClient) { }
 
   carregarPartida(id: number): Observable<Partida> {
-    return this.http.get<Partida>(`${this.apiUrl}/${id}`)
+    return this.http.get<Partida>(`${this.apiUrl}/listar/${id}`)
   }
   
   listar():Observable<Partida[]>{
