@@ -25,4 +25,31 @@ export class TimeService {
   alterar(time:Time):Observable<any>{
     return this.http.put(`${this.apiUrl}/alterar`, time)
   }
+
+  listarFake(){
+
+     let times: Time[] = [
+       {id: 1, nome: 'Time1'},
+       {id: 2, nome: 'Time2'}
+    ]
+    return times;
+
+  }
+
+
+  buscar( nome: string){
+
+    let times: Time[] = [];
+    times = this.listarFake();
+    let result = false;
+
+    times.forEach( (time) => {
+      if (time.nome.startsWith("Time2")){
+         result = true;
+      }
+    });
+    return result;
+
+  }
+
 }
