@@ -113,16 +113,27 @@ describe('ApostaService', () => {
 
   it('#carregarAposta deve retornar um objeto válido',(done)=>{
     $.ajax({
-      url:'http://localhost:8080/aposta/3',
+      url:'http://localhost:8080/aposta/listar',
       dataType:'json',
-      success: (data:Aposta, response:any)=>{
-        expect(data==null).toEqual(false)
-        done()
+      success: (data:Aposta[], response:any)=>{
+        const indexSorteado = Math.floor((Math.random() * data.length));
+        $.ajax({
+          url:`http://localhost:8080/aposta/listar/${indexSorteado}`,
+          dataType:'json',
+          success: (data:Aposta, response:any)=>{
+            expect(data==null).toEqual(false)
+            done()
+          },
+          error: (data: any,response: any)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
       },
-      error: (data,response)=>{
+      error: (data: any,response: any)=>{
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
+    
   })
 });
 
