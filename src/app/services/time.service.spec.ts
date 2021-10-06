@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/Testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { TimeService } from 'src/app/services/time.service';
 import { Time } from '../entities/time';
