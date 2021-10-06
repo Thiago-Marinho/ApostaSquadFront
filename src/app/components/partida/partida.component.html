@@ -21,11 +21,11 @@
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label for="data">Data da partida</label>
-                        <input type="date" name="data" id="data" [(ngModel)]="partida.data" required>
+                        <input formControlName="data" type="date" name="data" id="data" [(ngModel)]="partida.data" required>
                     </div>
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label for="id_estadio">Estadio da partida</label>
-                        <select id="id_estadio" name="id_estadio"[(ngModel)]="partida.id_estadio">
+                        <select formControlName="estadio" id="id_estadio" name="id_estadio"[(ngModel)]="partida.id_estadio">
                             <option *ngFor="let estadio of situacoes" value="{{estadio.id}}">{{estadio.descricao}}</option>
                         </select>
                     </div>

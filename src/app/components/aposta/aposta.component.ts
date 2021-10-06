@@ -82,6 +82,9 @@ export class ApostaComponent implements OnInit {
       ]],
       time: ['', [
         
+      ]],
+      situacao: ['', [
+        
       ]]
     })
   }
@@ -116,7 +119,7 @@ export class ApostaComponent implements OnInit {
     
     this.aposta.idCliente = Number(this.aposta.idCliente)
     this.aposta.idSituacao = Number(this.aposta.idSituacao)
-
+    console.log(this.aposta)
     this.apostaService.incluir(this.aposta).subscribe((resp)=>{this.apostaService.listar().subscribe(resp => this.apostas = resp)})
     this.apostaResultado1.id_aposta=Number(this.apostas[this.apostas.length - 1].id);
     if(this.quemganha == 'false') {

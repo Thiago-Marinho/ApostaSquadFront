@@ -40,8 +40,8 @@
 
 
                     <div class="form-group col-sm-6 flex-column d-flex">
-                        <label for="situacao_aposta">Situação aposta</label>
-                        <select id="situacao_aposta" name="situacao_aposta" [(ngModel)]="aposta.idSituacao">
+                        <label  for="idSituacao">Situação aposta</label>
+                        <select formControlName="situacao" id="idSituacao" name="idSituacao" [(ngModel)]="aposta.idSituacao">
                             <option *ngFor="let situacao of situacoes" value="{{situacao.id}}">{{situacao.descricao}}</option>
                         </select>
                         
@@ -71,7 +71,7 @@
                     </div>
                     
                 </div>
-                <button style="width: fit-content;" class="my-submit-button" (click)="validar()">Carregar times</button>
+                <button type= "button" style="width: fit-content;" class="my-submit-button" (click)="validar()">Carregar times</button>
 
                 <input *ngIf="form.valid" [disabled]="!form.valid" id="sbmit" class="my-submit-button" type="submit" value="Cadastrar">
             </form>

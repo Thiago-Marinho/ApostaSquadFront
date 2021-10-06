@@ -13,7 +13,7 @@ import { PartidaService } from 'src/app/services/partida.service';
 export class PartidaComponent implements OnInit {
 
   boolPostForm: boolean = false
-  partida: Partida = {descricao:"",id_estadio:0, data:""}
+  partida: Partida = {id: 0, descricao:"",id_estadio:0, data:""}
   partidas: Partida[] = []
   situacoes: Estadio[]=[]
 
@@ -22,6 +22,12 @@ export class PartidaComponent implements OnInit {
   constructor(private partidaService: PartidaService, private estadioService: EstadioService, private formBuilder: FormBuilder) { 
     this.form = this.formBuilder.group({
       descricao: ['', [
+        Validators.required
+      ]],
+      estadio: ['', [
+        Validators.required
+      ]],
+      data: ['', [
         Validators.required
       ]]
     })
@@ -39,6 +45,11 @@ export class PartidaComponent implements OnInit {
     this.boolPostForm = false
   }
   onSubmit(){
+    if(!this.form.valid) {
+      alert('invalid data!!!')
+      return
+    }
+    console.log(this.partida)
     this.partidaService.incluir(this.partida).subscribe(resp=>{this.hidePostForm(); this.listar()})
   }
 
