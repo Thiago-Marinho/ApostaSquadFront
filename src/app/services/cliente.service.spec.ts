@@ -64,9 +64,38 @@ describe('ClienteService', () => {
     });
     done()
   })
+
+  it('#alterar deve atualizar um objeto',done=>{
+    const cliente:Cliente ={id:3, nome:"Cliente de teste"}
+    let expected =0;
+
+    $.ajax({
+      type: "PUT",
+      url: 'http://localhost:8080/cliente/alterar/3',
+      data: JSON.stringify(cliente),
+      success: success=>{
+        $.ajax({
+          url:'http://localhost:8080/cliente/listar',
+          dataType:'json',
+          success: (data:Cliente[], response:any)=>{
+            expect(data.length).toBeGreaterThan(expected)
+            done()
+          },
+          error: (data,response)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
+      },
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    });
+    done()
+  })
+
+
   it('#carregarCliente deve retornar um objeto válido',(done)=>{
     $.ajax({
-      url:'http://localhost:8080/cliente/1',
+      url:'http://localhost:8080/cliente/3',
       dataType:'json',
       success: (data:Cliente, response:any)=>{
         expect(data==null).toEqual(false)
