@@ -77,4 +77,48 @@ describe('EstadioService', () => {
       }
     })
   })
+  
+  it('#alterar deve atualizar um objeto',done=>{
+    
+    $.ajax({
+      url:'http://localhost:8080/estadio/listar',
+      dataType:'json',
+      success: (data:Estadio[], response:any)=>{
+        const estadio:Estadio ={descricao:"teste"}
+        const indexSorteado = Math.floor((Math.random() * data.length));
+        estadio.id=data[indexSorteado].id
+        $.ajax({
+          type: "PUT",
+          url: 'http://localhost:8080/estadio/alterar',
+          data: JSON.stringify(estadio),
+          success: success=>{
+
+            $.ajax({
+              type:'GET',
+              url:`http://localhost:8080/estadio/listar/${estadio.id}`,
+              dataType:'json',
+              success: (data:Estadio, response:any)=>{
+                expect(data.descricao).toBe(estadio.descricao)
+                done()
+              },
+              error: (data,response)=>{
+                expect(true).toThrow("Erro ao realizar teste")
+                done();
+              }
+            })
+
+          },
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8'
+        });
+
+      },
+      error: (data,response)=>{
+        expect(true).toThrow("Erro ao realizar teste")
+        done();
+      }
+    })
+
+    done()
+  })
 });
