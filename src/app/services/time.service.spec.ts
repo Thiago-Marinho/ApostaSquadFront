@@ -1,37 +1,47 @@
+<<<<<<< HEAD
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+=======
+import { HttpClientTestingModule } from '@angular/common/http/Testing';
+import { async, inject, TestBed, waitForAsync } from '@angular/core/testing';
+>>>>>>> 3461622a4f07a2ee6b023171ec73b034bd127203
 import { TimeService } from 'src/app/services/time.service';
 import { Time } from '../entities/time';
 import * as $ from 'jquery'
+import { data } from 'jquery';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 describe('Testar o Servico de Time', () => {
 
   let service: TimeService
   let contador: number
+  let url: string = 'http://localhost:8080/time'
+  let timeList: Time[]
+
+  let timePost: Time = {
+    id: 0,
+    nome: 'Novo time para testar'
+  }
 
   beforeAll( () => {
     contador = 0;
-
-
-
+    service.listar().subscribe(resp => timeList = resp)
   });
 
   beforeEach( () => {
     contador += 1;
-
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [TimeService]
-    });
-    service = TestBed.inject(TimeService);
-
+    // TestBed.configureTestingModule({
+    //   imports: [HttpClientTestingModule],
+    //   providers: [TimeService]
+    // });
+    // service = TestBed.inject(TimeService);
+    
   });
 
   afterAll(() =>{
-    console.log( 'Quantidade de testes:', contador );
+    console.log('Quantidade de testes:', contador );
   });
-
 
   it('listar() - Deveria ser maior que zero...(mock)', () => {
 
@@ -55,7 +65,6 @@ describe('Testar o Servico de Time', () => {
 
   });
 
-
   it('Listar() - Deveria ser maior que zero.. (integrado com backend)', (doneFn) => {
 
     $.ajax({
@@ -70,7 +79,28 @@ describe('Testar o Servico de Time', () => {
         expect(true).toThrow("Erro ao testar")
       }
     });
-
   });
+
+  it('Deveria inserir um novo registro no banco (integrado com backend via ajax)', waitForAsync( () => {
+    // let timeService = new TimeService()
+    let response = []
+    $.ajax({
+      url: `${url}/incluir`,
+      method: 'post',
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(timePost),
+      success: () => {
+        console.log('success!!');
+        service.listar().subscribe(resp => {
+          response = resp
+        })
+        expect(response.length).toBeGreaterThan(timeList.length)
+      },
+      error: function(){
+        expect(true).toThrow("Erro ao testar")
+      }
+    })
+  }))
 
 });

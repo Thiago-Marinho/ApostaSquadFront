@@ -44,10 +44,11 @@ export class TimeService {
     let result = false;
 
     times.forEach( (time) => {
-      if (time.nome.startsWith("Time2")){
-         result = true;
+      if (time.nome.startsWith(nome)){
+        result = true;
       }
     });
+    
     return result;
 
   }
