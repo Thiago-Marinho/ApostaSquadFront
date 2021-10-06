@@ -23,7 +23,7 @@ describe('EstadioService', () => {
         expect(data.length).toBeGreaterThanOrEqual(0)
         done()
       },
-      error: (data,response)=>{
+      error: (data: any,response: any)=>{
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
@@ -37,7 +37,7 @@ describe('EstadioService', () => {
       success: (data:Estadio[], response:any)=>{
         expected=data.length
       },
-      error: (data,response)=>{
+      error: (data: any,response: any)=>{
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
@@ -46,7 +46,7 @@ describe('EstadioService', () => {
       type: "POST",
       url: 'http://localhost:8080/estadio/incluir',
       data: JSON.stringify(estadio),
-      success: success=>{
+      success: (success: any)=>{
         $.ajax({
           url:'http://localhost:8080/estadio/listar',
           dataType:'json',
@@ -54,7 +54,7 @@ describe('EstadioService', () => {
             expect(data.length).toBeGreaterThan(expected)
             done()
           },
-          error: (data,response)=>{
+          error: (data: any,response: any)=>{
             expect(true).toThrow("Erro ao realizar teste")
           }
         })
@@ -72,7 +72,7 @@ describe('EstadioService', () => {
         expect(data==null).toEqual(false)
         done()
       },
-      error: (data,response)=>{
+      error: (data: any,response: any)=>{
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
