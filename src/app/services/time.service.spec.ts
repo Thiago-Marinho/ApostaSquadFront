@@ -31,48 +31,12 @@ describe('TimeService - Testar o servico de Time', () => {
       imports: [HttpClientTestingModule],
       providers: [TimeService]
     });
-    service = TestBed.inject(TimeService);
+    service = TestBed.inject(TimeService)
     httpTestingController = TestBed.inject(HttpTestingController)
   });
 
   afterAll(() =>{
     console.log('Quantidade de testes:', contador );
-  });
-
-  it('#listar - Deve retornar uma lista de times... (mock)', () => {
-    const listaEsperada: Time[] = [
-      {id: 1, nome: 'time 1'},
-      {id: 2, nome: 'time 2'},
-      {id: 3, nome: 'time 3'}
-    ]
-    service.listar().subscribe(data => {
-      expect(data).toEqual(listaEsperada)
-    })
-
-    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/listar')
-    testRequest.flush(listaEsperada)
-  })
-
-  it('#listar - Deveria ser maior que zero...(mock)', () => {
-
-    let expected: number = 2;
-    let result: number = 0;
-    let times: Time[] = [];
-
-    times = service.listarFake();
-    console.log(times);
-    result = times.length;
-    expect(result).toEqual(expected);
-
-  });
-
-  it('#buscar - Deveria retornar um time a partir do nome... (mock)', () => {
-    let expected: boolean = true;
-    let result: boolean = false;
-
-    result = service.buscar("Time2");
-    expect(result).toEqual(expected);
-
   });
 
   it('#listar - Deveria ser maior que zero... (backend)', (doneFn) => {
@@ -158,5 +122,59 @@ describe('TimeService - Testar o servico de Time', () => {
     })
 
   });
+
+  // ----- TESTES COM MOCK ----- //
+
+  it('#listar - Deve retornar uma lista de times... (mock)', () => {
+    const listaEsperada: Time[] = [
+      { id: 1, nome: 'Cruzeiro' },
+      { id: 2, nome: 'Santos' },
+      { id: 3, nome: 'Bragantino' },
+      { id: 4, nome: 'Real Madrid' },
+    ]
+
+    service.listar().subscribe(data => {
+      expect(data).toEqual(listaEsperada)
+    })
+
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/listar')
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(listaEsperada)
+  })
+
+  it('#incluir - Deve enviar um objeto do tipo Time, a partir do método "POST"... (mock)', () => {
+    const timeTeste: Time = { nome: 'Barcelona' }
+
+    service.incluir(timeTeste).subscribe(resp => expect(resp).toEqual(timeTeste))
+
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/incluir')
+    expect(testRequest.request.method).toBe('POST')
+    expect(testRequest.request.body.nome).toEqual(timeTeste.nome)
+    testRequest.flush(timeTeste)
+  })
+
+  it('#alterar - Deve enviar um objeto com id e nome, a fim de substituir um objeto, a partir do método "PUT"... (mock)', ()=>{
+    const timeTeste: Time = { id: 3, nome: 'Chelsea' }
+    service.alterar(timeTeste).subscribe(
+      data => expect(data).toEqual(timeTeste)
+    )
+
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/alterar')
+    expect(testRequest.request.method).toBe('PUT')
+    expect(testRequest.request.body.nome).toEqual(timeTeste.nome)
+    expect(testRequest.request.body.id).toEqual(timeTeste.id)
+    testRequest.flush(timeTeste)
+  })
+
+  it('#carregarTime deve fazer a requisição por um item específico, a partir do método "GET"... (mock)', ()=>{
+    const timeTeste: Time = { id: 3, nome: 'Chelsea' }
+    service.carregarTime(Number(timeTeste.id)).subscribe(
+      data=>expect(data).toEqual(timeTeste)
+    )
+
+    const testRequest = httpTestingController.expectOne(`http://localhost:8080/time/${timeTeste.id}`)
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(timeTeste)
+  })
 
 });
