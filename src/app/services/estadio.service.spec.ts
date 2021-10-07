@@ -33,7 +33,33 @@ describe('EstadioService', () => {
     })
 
     const testRequest = httpTestingController.expectOne('http://localhost:8080/estadio/listar')
+    expect(testRequest.request.method).toBe('GET')
     testRequest.flush(listaEsperada)
-    
   })
+  
+  it("#incluir deve mandar um objeto do tipo estádio, a partir do método 'POST'", ()=>{
+    const estadioTeste:Estadio = {descricao:"Pernanbucano"}
+
+    service.incluir(estadioTeste).subscribe(
+      data=> expect(data).toEqual(estadioTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/estadio/incluir')
+    expect(testRequest.request.method).toBe('POST')
+    expect(testRequest.request.body.descricao).toEqual(estadioTeste.descricao)
+    console.log(testRequest.request.body)
+    testRequest.flush(estadioTeste)
+  })
+
+  it("#alterar deve mandar um objeto com id e corpo, a fim de substituir um objeto, a partir do método 'PUT'", ()=>{
+    const estadioTeste:Estadio = {id:1, descricao:"Pernanbucano"}
+    service.alterar(estadioTeste).subscribe(
+      data=> expect(data).toEqual(estadioTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/estadio/alterar')
+    expect(testRequest.request.method).toBe('PUT')
+    expect(testRequest.request.body.descricao).toEqual(estadioTeste.descricao)
+    expect(testRequest.request.body.id).toEqual(estadioTeste.id)
+    testRequest.flush(estadioTeste)
+  })
+
 });
