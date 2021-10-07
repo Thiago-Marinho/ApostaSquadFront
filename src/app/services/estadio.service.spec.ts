@@ -29,7 +29,7 @@ describe('EstadioService', () => {
     })
   });
   it('#incluir deve adicionar um objeto',done=>{
-    const estadio:Estadio ={descricao:"testeFrontEstadio"}
+    const estadio:Estadio ={descricao:"teste"}
     let expected =0;
     $.ajax({
       url:'http://localhost:8080/estadio/listar',
@@ -37,7 +37,7 @@ describe('EstadioService', () => {
       success: (data:Estadio[], response:any)=>{
         expected=data.length
       },
-      error: (data: any,response: any)=>{
+      error: (data,response)=>{
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
@@ -46,7 +46,7 @@ describe('EstadioService', () => {
       type: "POST",
       url: 'http://localhost:8080/estadio/incluir',
       data: JSON.stringify(estadio),
-      success: (success: any)=>{
+      success: success=>{
         $.ajax({
           url:'http://localhost:8080/estadio/listar',
           dataType:'json',
@@ -54,7 +54,7 @@ describe('EstadioService', () => {
             expect(data.length).toBeGreaterThan(expected)
             done()
           },
-          error: (data: any,response: any)=>{
+          error: (data,response)=>{
             expect(true).toThrow("Erro ao realizar teste")
           }
         })

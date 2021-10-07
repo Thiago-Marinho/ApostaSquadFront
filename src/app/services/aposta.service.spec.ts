@@ -133,7 +133,7 @@ describe('ApostaService', () => {
         expect(true).toThrow("Erro ao realizar teste")
       }
     })
-    
+    done()
   })
 });
 
