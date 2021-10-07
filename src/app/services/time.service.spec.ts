@@ -8,12 +8,12 @@ import { data } from 'jquery';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
-describe('Testar o Servico de Time', () => {
+describe('TimeService - Testar o servico de Time', () => {
 
   let service: TimeService
   let contador: number
   let url: string = 'http://localhost:8080/time'
-  let timeList: Time[]
+ 
   let httpTestingController: HttpTestingController
 
   let timePost: Time = {
@@ -23,7 +23,6 @@ describe('Testar o Servico de Time', () => {
 
   beforeAll( () => {
     contador = 0;
-    service.listar().subscribe(resp => timeList = resp)
   });
 
   beforeEach( () => {
@@ -40,7 +39,7 @@ describe('Testar o Servico de Time', () => {
     console.log('Quantidade de testes:', contador );
   });
 
-  it('listar com mock', () => {
+  it('#listar - Deve retornar uma lista de times... (mock)', () => {
     const listaEsperada: Time[] = [
       {id: 1, nome: 'time 1'},
       {id: 2, nome: 'time 2'},
@@ -54,7 +53,7 @@ describe('Testar o Servico de Time', () => {
     testRequest.flush(listaEsperada)
   })
 
-  it('listar() - Deveria ser maior que zero...(mock)', () => {
+  it('#listar - Deveria ser maior que zero...(mock)', () => {
 
     let expected: number = 2;
     let result: number = 0;
@@ -67,7 +66,7 @@ describe('Testar o Servico de Time', () => {
 
   });
 
-  it('Buscar time2', () => {
+  it('#buscar - Deveria retornar um time a partir do nome... (mock)', () => {
     let expected: boolean = true;
     let result: boolean = false;
 
@@ -76,7 +75,7 @@ describe('Testar o Servico de Time', () => {
 
   });
 
-  it('Listar() - Deveria ser maior que zero.. (integrado com backend)', (doneFn) => {
+  it('#listar - Deveria ser maior que zero... (backend)', (doneFn) => {
 
     $.ajax({
       url: 'http://localhost:8080/time/listar',
@@ -93,68 +92,71 @@ describe('Testar o Servico de Time', () => {
 
   });
 
-  it('#incluir deve adicionar um objeto',done=>{
+  it('#incluir - Deve adicionar um objeto... (backend)',(done)=>{
     const time:Time ={nome:"Time de teste"}
     let expected =0;
+    let result = 0;
+
     $.ajax({
       url:'http://localhost:8080/time/listar',
       dataType:'json',
       success: (data:Time[], response:any)=>{
-        expected=data.length
+        expected=data.length+1
       },
       error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
+        result = -1
       }
-    })
+    }).then ( () => {
 
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:8080/time/incluir',
-      data: JSON.stringify(time),
-      success: success=>{
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/time/incluir',
+        data: JSON.stringify(time),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8'
+      }).then ( () => {
+
         $.ajax({
           url:'http://localhost:8080/time/listar',
           dataType:'json',
           success: (data:Time[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
+            result=data.length
           },
           error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
+            result = -1
           }
+        }).then( () => {
+           expect(expected).toEqual(result);
+           done(); 
         })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
-  })
+      })
+    })
 
-  it('#alterar deve atualizar um objeto',done=>{
+  });
+
+  it('#alterar - Deve atualizar um objeto... (backend)',(done)=>{
     const time:Time ={id:3, nome:"Time de teste"}
-    let expected =0;
+    let expected: boolean = true;
+    let result: boolean = false;
 
     $.ajax({
       type: "PUT",
-      url: 'http://localhost:8080/time/alterar/3',
+      url: 'http://localhost:8080/time/alterar',
       data: JSON.stringify(time),
       success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/time/listar',
-          dataType:'json',
-          success: (data:Time[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
+        result = true;
+      },
+      error: (data,response)=>{
+        console.log("Erro no alterar", data)
+        result = false
       },
       dataType: 'json',
       contentType: 'application/json; charset=utf-8'
-    });
-    done()
-  })
+    }).then (() =>{
+      expect(expected).toEqual(result);
+      done() 
+    })
+
+  });
 
 });
