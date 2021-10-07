@@ -40,6 +40,20 @@ describe('Testar o Servico de Time', () => {
     console.log('Quantidade de testes:', contador );
   });
 
+  it('listar com mock', () => {
+    const listaEsperada: Time[] = [
+      {id: 1, nome: 'time 1'},
+      {id: 2, nome: 'time 2'},
+      {id: 3, nome: 'time 3'}
+    ]
+    service.listar().subscribe(data => {
+      expect(data).toEqual(listaEsperada)
+    })
+
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/listar')
+    testRequest.flush(listaEsperada)
+  })
+
   it('listar() - Deveria ser maior que zero...(mock)', () => {
 
     let expected: number = 2;
@@ -79,9 +93,68 @@ describe('Testar o Servico de Time', () => {
 
   });
 
-  it('Deveria inserir um novo registro no banco (integrado com backend via ajax)', () => {
-    service.incluir(timePost).subscribe(resp => console.log('inserindo no banco: ', resp))
+  it('#incluir deve adicionar um objeto',done=>{
+    const time:Time ={nome:"Time de teste"}
+    let expected =0;
+    $.ajax({
+      url:'http://localhost:8080/time/listar',
+      dataType:'json',
+      success: (data:Time[], response:any)=>{
+        expected=data.length
+      },
+      error: (data,response)=>{
+        expect(true).toThrow("Erro ao realizar teste")
+      }
+    })
 
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:8080/time/incluir',
+      data: JSON.stringify(time),
+      success: success=>{
+        $.ajax({
+          url:'http://localhost:8080/time/listar',
+          dataType:'json',
+          success: (data:Time[], response:any)=>{
+            expect(data.length).toBeGreaterThan(expected)
+            done()
+          },
+          error: (data,response)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
+      },
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    });
+    done()
+  })
+
+  it('#alterar deve atualizar um objeto',done=>{
+    const time:Time ={id:3, nome:"Time de teste"}
+    let expected =0;
+
+    $.ajax({
+      type: "PUT",
+      url: 'http://localhost:8080/time/alterar/3',
+      data: JSON.stringify(time),
+      success: success=>{
+        $.ajax({
+          url:'http://localhost:8080/time/listar',
+          dataType:'json',
+          success: (data:Time[], response:any)=>{
+            expect(data.length).toBeGreaterThan(expected)
+            done()
+          },
+          error: (data,response)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
+      },
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    });
+    done()
   })
 
 });
