@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-=======
-import { HttpClientTestingModule } from '@angular/common/http/Testing';
+
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, inject, TestBed, waitForAsync } from '@angular/core/testing';
->>>>>>> 3461622a4f07a2ee6b023171ec73b034bd127203
 import { TimeService } from 'src/app/services/time.service';
 import { Time } from '../entities/time';
 import * as $ from 'jquery'
@@ -18,6 +14,7 @@ describe('Testar o Servico de Time', () => {
   let contador: number
   let url: string = 'http://localhost:8080/time'
   let timeList: Time[]
+  let httpTestingController: HttpTestingController
 
   let timePost: Time = {
     id: 0,
@@ -31,17 +28,31 @@ describe('Testar o Servico de Time', () => {
 
   beforeEach( () => {
     contador += 1;
-    // TestBed.configureTestingModule({
-    //   imports: [HttpClientTestingModule],
-    //   providers: [TimeService]
-    // });
-    // service = TestBed.inject(TimeService);
-    
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [TimeService]
+    });
+    service = TestBed.inject(TimeService);
+    httpTestingController = TestBed.inject(HttpTestingController)
   });
 
   afterAll(() =>{
     console.log('Quantidade de testes:', contador );
   });
+
+  it('listar com mock', () => {
+    const listaEsperada: Time[] = [
+      {id: 1, nome: 'time 1'},
+      {id: 2, nome: 'time 2'},
+      {id: 3, nome: 'time 3'}
+    ]
+    service.listar().subscribe(data => {
+      expect(data).toEqual(listaEsperada)
+    })
+
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/time/listar')
+    testRequest.flush(listaEsperada)
+  })
 
   it('listar() - Deveria ser maior que zero...(mock)', () => {
 
@@ -78,29 +89,72 @@ describe('Testar o Servico de Time', () => {
       error: function( data, response){
         expect(true).toThrow("Erro ao testar")
       }
-    });
+    })
+
   });
 
-  it('Deveria inserir um novo registro no banco (integrado com backend via ajax)', waitForAsync( () => {
-    // let timeService = new TimeService()
-    let response = []
+  it('#incluir deve adicionar um objeto',done=>{
+    const time:Time ={nome:"Time de teste"}
+    let expected =0;
     $.ajax({
-      url: `${url}/incluir`,
-      method: 'post',
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      data: JSON.stringify(timePost),
-      success: () => {
-        console.log('success!!');
-        service.listar().subscribe(resp => {
-          response = resp
-        })
-        expect(response.length).toBeGreaterThan(timeList.length)
+      url:'http://localhost:8080/time/listar',
+      dataType:'json',
+      success: (data:Time[], response:any)=>{
+        expected=data.length
       },
-      error: function(){
-        expect(true).toThrow("Erro ao testar")
+      error: (data,response)=>{
+        expect(true).toThrow("Erro ao realizar teste")
       }
     })
-  }))
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:8080/time/incluir',
+      data: JSON.stringify(time),
+      success: success=>{
+        $.ajax({
+          url:'http://localhost:8080/time/listar',
+          dataType:'json',
+          success: (data:Time[], response:any)=>{
+            expect(data.length).toBeGreaterThan(expected)
+            done()
+          },
+          error: (data,response)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
+      },
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    });
+    done()
+  })
+
+  it('#alterar deve atualizar um objeto',done=>{
+    const time:Time ={id:3, nome:"Time de teste"}
+    let expected =0;
+
+    $.ajax({
+      type: "PUT",
+      url: 'http://localhost:8080/time/alterar/3',
+      data: JSON.stringify(time),
+      success: success=>{
+        $.ajax({
+          url:'http://localhost:8080/time/listar',
+          dataType:'json',
+          success: (data:Time[], response:any)=>{
+            expect(data.length).toBeGreaterThan(expected)
+            done()
+          },
+          error: (data,response)=>{
+            expect(true).toThrow("Erro ao realizar teste")
+          }
+        })
+      },
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    });
+    done()
+  })
 
 });
