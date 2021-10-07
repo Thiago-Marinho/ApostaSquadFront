@@ -62,4 +62,14 @@ describe('EstadioService', () => {
     testRequest.flush(estadioTeste)
   })
 
+  it("#carregarEstadio deve fazer a requisição por um item específico, a partir do método GET", ()=>{
+    const estadioTeste:Estadio = {id:1, descricao:"Pernanbucano"}
+    service.carregarEstadio(1).subscribe(
+      data=>expect(data).toEqual(estadioTeste)
+    )
+    const testRequest = httpTestingController.expectOne(`http://localhost:8080/estadio/listar/${estadioTeste.id}`)
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(estadioTeste)
+  })
+
 });
