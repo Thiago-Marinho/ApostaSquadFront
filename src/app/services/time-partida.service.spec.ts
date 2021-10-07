@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 import { TimePartida } from '../entities/time_partida';
 import { TimePartidaService } from './time-partida.service';
 import * as $ from 'jquery'
 
 describe('TimePartidaService', () => {
+  let httpTestingController:HttpTestingController
   let service: TimePartidaService;
 
   beforeEach(() => {
@@ -12,107 +15,65 @@ describe('TimePartidaService', () => {
       imports:[HttpClientTestingModule],
       providers:[TimePartidaService]
     });
+    httpTestingController = TestBed.inject(HttpTestingController)
     service = TestBed.inject(TimePartidaService);
   });
 
-  it('#listar deve retornar uma lista maior que zero', (done) => {
-    $.ajax({
-      url:'http://localhost:8080/timepartida/listar',
-      dataType:'json',
-      success: (data:TimePartida[], response:any)=>{
-        expect(data.length).toBeGreaterThanOrEqual(0)
-        done()
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
-  });
-  it('#incluir deve adicionar um objeto',done=>{
-    const time_partida:TimePartida ={
-      resultado:false,
-      idPartida:1,
-      idTime:1
-    }
-
-    let expected =0;
-    $.ajax({
-      url:'http://localhost:8080/timepartida/listar',
-      dataType:'json',
-      success: (data:TimePartida[], response:any)=>{
-        expected=data.length
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
+  afterEach(()=>{
+    httpTestingController.verify()
+  })
+  it("#listar deve retornar uma lista de time_partidas", ()=>{
+    const listaEsperada:TimePartida[]= [
+      {id:1, resultado:true, idPartida: 1, idTime: 1},
+      {id:2, resultado:false, idPartida: 1, idTime: 2},
+      {id:3, resultado:true, idPartida: 2, idTime: 1}
+    ]
+    service.listar().subscribe(data=>{
+      expect(data).toEqual(listaEsperada)
     })
 
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:8080/timepartida/incluir',
-      data: JSON.stringify(time_partida),
-      success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/timepartida/listar',
-          dataType:'json',
-          success: (data:TimePartida[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/timepartida/listar')
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(listaEsperada)
+  })
+  
+  it("#incluir deve mandar um objeto do tipo estádio, a partir do método 'POST'", ()=>{
+    const time_partidaTeste:TimePartida = {resultado:true, idPartida: 3, idTime: 2}
+
+    service.incluir(time_partidaTeste).subscribe(
+      data=> expect(data).toEqual(time_partidaTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/timepartida/incluir')
+    expect(testRequest.request.method).toBe('POST')
+    expect(testRequest.request.body.resultado).toEqual(time_partidaTeste.resultado)
+    expect(testRequest.request.body.idPartida).toEqual(time_partidaTeste.idPartida)
+    expect(testRequest.request.body.idTime).toEqual(time_partidaTeste.idTime)
+    console.log(testRequest.request.body)
+    testRequest.flush(time_partidaTeste)
   })
 
-  it('#alterar deve atualizar um objeto',done=>{
-    const time_partida:TimePartida ={      
-      id: 3,
-      resultado:true,
-      idPartida:1,
-      idTime:3}
-    let expected =0;
-
-    $.ajax({
-      type: "PUT",
-      url: 'http://localhost:8080/timepartida/alterar',
-      data: JSON.stringify(time_partida),
-      success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/timepartida/listar',
-          dataType:'json',
-          success: (data:TimePartida[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
+  it("#alterar deve mandar um objeto com id e corpo, a fim de substituir um objeto, a partir do método 'PUT'", ()=>{
+    const time_partidaTeste:TimePartida = {id:3, resultado:false, idPartida: 1, idTime: 1}
+    service.alterar(time_partidaTeste).subscribe(
+      data=> expect(data).toEqual(time_partidaTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/timepartida/alterar')
+    expect(testRequest.request.method).toBe('PUT')
+        expect(testRequest.request.body.resultado).toEqual(time_partidaTeste.resultado)
+    expect(testRequest.request.body.idPartida).toEqual(time_partidaTeste.idPartida)
+    expect(testRequest.request.body.idTime).toEqual(time_partidaTeste.idTime)
+    expect(testRequest.request.body.id).toEqual(time_partidaTeste.id)
+    testRequest.flush(time_partidaTeste)
   })
 
-
-  it('#carregarTimePartida deve retornar um objeto válido',(done)=>{
-    $.ajax({
-      url:'http://localhost:8080/timepartida/3',
-      dataType:'json',
-      success: (data:TimePartida, response:any)=>{
-        expect(data==null).toEqual(false)
-        done()
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
+  it("#carregarTimePartida deve fazer a requisição por um item específico, a partir do método GET", ()=>{
+    const time_partidaTeste:TimePartida = {id:2, resultado:false, idPartida: 1, idTime: 2}
+    service.carregarTimePartida(2).subscribe(
+      data=>expect(data).toEqual(time_partidaTeste)
+    )
+    const testRequest = httpTestingController.expectOne(`http://localhost:8080/timepartida/${time_partidaTeste.id}`)
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(time_partidaTeste)
   })
+
 });
