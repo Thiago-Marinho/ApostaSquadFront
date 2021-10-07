@@ -62,4 +62,14 @@ describe('ApostaService', () => {
     testRequest.flush(apostaTeste)
   })
 
+  it("#carregarAposta deve fazer a requisição por um item específico, a partir do método GET", ()=>{
+    const apostaTeste:Aposta = {id:1, descricao:"Boa aposta", idCliente:1, idSituacao:1, valor:100}
+    service.carregarAposta(1).subscribe(
+      data=>expect(data).toEqual(apostaTeste)
+    )
+    const testRequest = httpTestingController.expectOne(`http://localhost:8080/aposta/${apostaTeste.id}`)
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(apostaTeste)
+  })
+
 });
