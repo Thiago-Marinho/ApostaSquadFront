@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 import { Cliente } from '../entities/cliente';
 import { ClienteService } from './cliente.service';
 import * as $ from 'jquery'
 
 describe('ClienteService', () => {
+  let httpTestingController:HttpTestingController
   let service: ClienteService;
 
   beforeEach(() => {
@@ -12,98 +15,61 @@ describe('ClienteService', () => {
       imports:[HttpClientTestingModule],
       providers:[ClienteService]
     });
+    httpTestingController = TestBed.inject(HttpTestingController)
     service = TestBed.inject(ClienteService);
   });
 
-  it('#listar deve retornar uma lista maior que zero', (done) => {
-    $.ajax({
-      url:'http://localhost:8080/cliente/listar',
-      dataType:'json',
-      success: (data:Cliente[], response:any)=>{
-        expect(data.length).toBeGreaterThanOrEqual(0)
-        done()
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
-  });
-  it('#incluir deve adicionar um objeto',done=>{
-    const cliente:Cliente ={nome:"Cliente de teste"}
-    let expected =0;
-    $.ajax({
-      url:'http://localhost:8080/cliente/listar',
-      dataType:'json',
-      success: (data:Cliente[], response:any)=>{
-        expected=data.length
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
+  afterEach(()=>{
+    httpTestingController.verify()
+  })
+  it("#listar deve retornar uma lista de clientes", ()=>{
+    const listaEsperada:Cliente[]= [
+      {id:1, nome:"Marcus"},
+      {id:2, nome:"Lucas"},
+      {id:3, nome:"Thiago"},
+    ]
+    service.listar().subscribe(data=>{
+      expect(data).toEqual(listaEsperada)
     })
 
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:8080/cliente/incluir',
-      data: JSON.stringify(cliente),
-      success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/cliente/listar',
-          dataType:'json',
-          success: (data:Cliente[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/cliente/listar')
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(listaEsperada)
+  })
+  
+  it("#incluir deve mandar um objeto do tipo estádio, a partir do método 'POST'", ()=>{
+    const clienteTeste:Cliente = {nome:"Misael"}
+
+    service.incluir(clienteTeste).subscribe(
+      data=> expect(data).toEqual(clienteTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/cliente/incluir')
+    expect(testRequest.request.method).toBe('POST')
+    expect(testRequest.request.body.nome).toEqual(clienteTeste.nome)
+    console.log(testRequest.request.body)
+    testRequest.flush(clienteTeste)
   })
 
-  it('#alterar deve atualizar um objeto',done=>{
-    const cliente:Cliente ={id:3, nome:"Cliente de teste"}
-    let expected =0;
-
-    $.ajax({
-      type: "PUT",
-      url: 'http://localhost:8080/cliente/alterar/3',
-      data: JSON.stringify(cliente),
-      success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/cliente/listar',
-          dataType:'json',
-          success: (data:Cliente[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
+  it("#alterar deve mandar um objeto com id e corpo, a fim de substituir um objeto, a partir do método 'PUT'", ()=>{
+    const clienteTeste:Cliente = {id:1, nome:"Marcus Rolim"}
+    service.alterar(clienteTeste).subscribe(
+      data=> expect(data).toEqual(clienteTeste)
+    )
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/cliente/alterar')
+    expect(testRequest.request.method).toBe('PUT')
+    expect(testRequest.request.body.nome).toEqual(clienteTeste.nome)
+    expect(testRequest.request.body.id).toEqual(clienteTeste.id)
+    testRequest.flush(clienteTeste)
   })
 
-
-  it('#carregarCliente deve retornar um objeto válido',(done)=>{
-    $.ajax({
-      url:'http://localhost:8080/cliente/3',
-      dataType:'json',
-      success: (data:Cliente, response:any)=>{
-        expect(data==null).toEqual(false)
-        done()
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
+  it("#carregarCliente deve fazer a requisição por um item específico, a partir do método GET", ()=>{
+    const clienteTeste:Cliente = {id:1, nome:"Marcus Rolim"}
+    service.carregarCliente(1).subscribe(
+      data=>expect(data).toEqual(clienteTeste)
+    )
+    const testRequest = httpTestingController.expectOne(`http://localhost:8080/cliente/${clienteTeste.id}`)
+    expect(testRequest.request.method).toBe('GET')
+    testRequest.flush(clienteTeste)
   })
+
 });
