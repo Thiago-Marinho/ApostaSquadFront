@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 import { Estadio } from '../entities/estadio';
 import { EstadioService } from './estadio.service';
 import * as $ from 'jquery'
 
 describe('EstadioService', () => {
+  let httpTestingController:HttpTestingController
   let service: EstadioService;
 
   beforeEach(() => {
@@ -12,124 +15,25 @@ describe('EstadioService', () => {
       imports:[HttpClientTestingModule],
       providers:[EstadioService]
     });
+    httpTestingController = TestBed.inject(HttpTestingController)
     service = TestBed.inject(EstadioService);
   });
 
-  it('#listar deve retornar uma lista maior que zero', (done) => {
-    $.ajax({
-      url:'http://localhost:8080/estadio/listar',
-      dataType:'json',
-      success: (data:Estadio[], response:any)=>{
-        expect(data.length).toBeGreaterThanOrEqual(0)
-        done()
-      },
-      error: (data: any,response: any)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
-  });
-  it('#incluir deve adicionar um objeto',done=>{
-    const estadio:Estadio ={descricao:"teste"}
-    let expected =0;
-    $.ajax({
-      url:'http://localhost:8080/estadio/listar',
-      dataType:'json',
-      success: (data:Estadio[], response:any)=>{
-        expected=data.length
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
+  afterEach(()=>{
+    httpTestingController.verify()
+  })
+  it("#listar deve retornar uma lista de estadios", ()=>{
+    const listaEsperada:Estadio[]= [
+      {id:1, descricao:"Maracanã"},
+      {id:2, descricao:"Itaipuva"},
+      {id:3, descricao:"Ladrina"},
+    ]
+    service.listar().subscribe(data=>{
+      expect(data).toEqual(listaEsperada)
     })
 
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:8080/estadio/incluir',
-      data: JSON.stringify(estadio),
-      success: success=>{
-        $.ajax({
-          url:'http://localhost:8080/estadio/listar',
-          dataType:'json',
-          success: (data:Estadio[], response:any)=>{
-            expect(data.length).toBeGreaterThan(expected)
-            done()
-          },
-          error: (data,response)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    });
-    done()
-  })
-  it('#carregarEstadio deve retornar um objeto válido',(done)=>{
-    $.ajax({
-      url:'http://localhost:8080/estadio/listar',
-      dataType:'json',
-      success: (data:Estadio[], response:any)=>{
-        const indexSorteado = Math.floor((Math.random() * data.length));
-        $.ajax({
-          url:`http://localhost:8080/estadio/listar/${indexSorteado}`,
-          dataType:'json',
-          success: (data:Estadio, response:any)=>{
-            expect(data==null).toEqual(false)
-            done()
-          },
-          error: (data: any,response: any)=>{
-            expect(true).toThrow("Erro ao realizar teste")
-          }
-        })
-      },
-      error: (data: any,response: any)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-      }
-    })
-    done()
-  })
-  
-  it('#alterar deve atualizar um objeto',done=>{
+    const testRequest = httpTestingController.expectOne('http://localhost:8080/estadio/listar')
+    testRequest.flush(listaEsperada)
     
-    $.ajax({
-      url:'http://localhost:8080/estadio/listar',
-      dataType:'json',
-      success: (data:Estadio[], response:any)=>{
-        const estadio:Estadio ={descricao:"teste"}
-        const indexSorteado = Math.floor((Math.random() * data.length));
-        estadio.id=data[indexSorteado].id
-        $.ajax({
-          type: "PUT",
-          url: 'http://localhost:8080/estadio/alterar',
-          data: JSON.stringify(estadio),
-          success: success=>{
-
-            $.ajax({
-              type:'GET',
-              url:`http://localhost:8080/estadio/listar/${estadio.id}`,
-              dataType:'json',
-              success: (data:Estadio, response:any)=>{
-                expect(data.descricao).toBe(estadio.descricao)
-                done()
-              },
-              error: (data,response)=>{
-                expect(true).toThrow("Erro ao realizar teste")
-                
-              }
-            })
-
-          },
-          dataType: 'json',
-          contentType: 'application/json; charset=utf-8'
-        });
-
-      },
-      error: (data,response)=>{
-        expect(true).toThrow("Erro ao realizar teste")
-        
-      }
-    })
-
-    done()
   })
 });

@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-=======
-import { HttpClientTestingModule } from '@angular/common/http/Testing';
+
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, inject, TestBed, waitForAsync } from '@angular/core/testing';
->>>>>>> 3461622a4f07a2ee6b023171ec73b034bd127203
 import { TimeService } from 'src/app/services/time.service';
 import { Time } from '../entities/time';
 import * as $ from 'jquery'
@@ -18,6 +14,7 @@ describe('Testar o Servico de Time', () => {
   let contador: number
   let url: string = 'http://localhost:8080/time'
   let timeList: Time[]
+  let httpTestingController: HttpTestingController
 
   let timePost: Time = {
     id: 0,
@@ -31,12 +28,12 @@ describe('Testar o Servico de Time', () => {
 
   beforeEach( () => {
     contador += 1;
-    // TestBed.configureTestingModule({
-    //   imports: [HttpClientTestingModule],
-    //   providers: [TimeService]
-    // });
-    // service = TestBed.inject(TimeService);
-    
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [TimeService]
+    });
+    service = TestBed.inject(TimeService);
+    httpTestingController = TestBed.inject(HttpTestingController)
   });
 
   afterAll(() =>{
@@ -78,29 +75,13 @@ describe('Testar o Servico de Time', () => {
       error: function( data, response){
         expect(true).toThrow("Erro ao testar")
       }
-    });
+    })
+
   });
 
-  it('Deveria inserir um novo registro no banco (integrado com backend via ajax)', waitForAsync( () => {
-    // let timeService = new TimeService()
-    let response = []
-    $.ajax({
-      url: `${url}/incluir`,
-      method: 'post',
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      data: JSON.stringify(timePost),
-      success: () => {
-        console.log('success!!');
-        service.listar().subscribe(resp => {
-          response = resp
-        })
-        expect(response.length).toBeGreaterThan(timeList.length)
-      },
-      error: function(){
-        expect(true).toThrow("Erro ao testar")
-      }
-    })
-  }))
+  it('Deveria inserir um novo registro no banco (integrado com backend via ajax)', () => {
+    service.incluir(timePost).subscribe(resp => console.log('inserindo no banco: ', resp))
+
+  })
 
 });
