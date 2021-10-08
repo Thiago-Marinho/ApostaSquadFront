@@ -1,4 +1,4 @@
-<h1 class="py-3 text-center">Alterar aposta do id: {{aposta.id}}</h1>
+<h1 id="title" class="py-3 text-center">Alterar aposta do id: {{aposta.id}}</h1>
 
 <div class="container my-3">
     <div class="card" style="width: 32rem; margin: auto; float: none;">
@@ -21,7 +21,7 @@
                     </select>
                 </div>
                 <button class="btn btn-danger" (click)="goBack()">Fechar sem salvar</button> 
-                <button class="btn btn-success" (click)="alterar()">Salvar</button>
+                <button id="salvar" class="btn btn-success" (click)="alterar()">Salvar</button>
             </form>
         </div>
     </div>

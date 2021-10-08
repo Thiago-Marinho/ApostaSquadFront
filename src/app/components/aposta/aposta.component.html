@@ -1,5 +1,6 @@
 <div class="container">
     <!-- LISTAR -->
+    <h1>Listar Apostas</h1>
     <ul class="list-group">
         <li *ngFor="let aposta of apostas" class="list-group-item d-flex justify-content-between">{{ aposta.descricao }} <button style="margin-left: auto;" type="button" routerLink="/aposta/alterar/{{aposta.id}}" class="btn btn-primary">Alterar</button></li>
     </ul>
