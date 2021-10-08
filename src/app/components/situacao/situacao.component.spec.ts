@@ -1,11 +1,8 @@
 import { SituacaoService } from './../../services/situacao.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SituacaoComponent } from './situacao.component';
 import { FormBuilder, FormsModule } from '@angular/forms';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('SituacaoComponent', () => {
   let component: SituacaoComponent;
@@ -31,17 +28,12 @@ describe('SituacaoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('#Title - O titulo deve constar no html', () => {
 
     const app = fixture.debugElement.nativeElement;
     title = app.querySelector("#title");
-
     let expected: string = "Situação";
     let result: string = title.innerHTML
-
     expect(result).toContain(expected);
-
   });
-
 });
