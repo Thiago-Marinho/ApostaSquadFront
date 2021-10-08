@@ -1,4 +1,5 @@
-<div class="container-fluid px-1 py-5 mx-auto">
+ <h1 id="title">Lista de timePartida</h1>
+ <div class="container-fluid px-1 py-5 mx-auto">
     <!-- LISTAR -->
     <ul class="list-group">
         <li *ngFor="let timePartida of timesPartidas" class="list-group-item d-flex justify-content-between">{{ timePartida.id }} <button type="button" routerLink="/timePartida/alterar/{{timePartida.id}}" class="btn btn-primary">Alterar</button></li>
