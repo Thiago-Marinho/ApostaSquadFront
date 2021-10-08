@@ -14,22 +14,22 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('#component deve ser criado', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'apostaSquad'`, () => {
+  it(`O título da página de ser 'apostaSquad'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('apostaSquad');
   });
 
-  it('should render title', () => {
+  it('#.navbar-brand deve ser reenderizado da maneira correta', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('apostaSquad app is running!');
+    expect(compiled.querySelector('.navbar-brand')?.textContent).toContain('Sistema de Apostas');
   });
 });
