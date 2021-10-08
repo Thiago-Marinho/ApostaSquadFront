@@ -52,5 +52,4 @@ describe('ClienteAlterarComponent', () => {
     expect(result).toContain(expected);
   });
 
-
 });

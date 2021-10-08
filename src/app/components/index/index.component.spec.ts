@@ -19,7 +19,15 @@ describe('IndexComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('#Create - Deve criar um component do index', () => {
     expect(component).toBeTruthy();
   });
+
+  it('#Title - O HTML deve conter um titulo', () => {
+    const title = fixture.debugElement.nativeElement.querySelector('#title')
+    let expected: string = 'Bem-vindo ao sitema de apostas do Squad!'
+    let result: string = title.innerHTML
+
+    expect(result).toBe(expected)
+  })
 });
