@@ -1,27 +1,40 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+
+
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Sistema de Apostas</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+        <a class="navbar-brand" style="font-size: 25px" href="/">Sistema de Apostas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+            <ul class="navbar-nav" routerLinkActive="active" >
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 25px" href="aposta" routerLink="aposta"  >Apostas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 25px" href="cliente" routerLink="cliente">Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 25px" href="estadio" routerLink="estadio">Estádios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 25px" href="partida" routerLink="partida">Partidas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 25px" href="time" routerLink="time">Times</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul class="navbar-nav" routerLinkActive="active" >
             <li class="nav-item">
-                <a class="nav-link active" href="aposta">Apostas</a>
+                <a class="nav-link" style="font-size: 25px" href="aposta" routerLink="aposta"  >Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="cliente">Cliente</a>
+                <a class="nav-link" style="font-size: 25px" href="aposta" routerLink="aposta"  >SingUP</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="estadio">Estádios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="partida">Partidas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="time">Times</a>
-            </li>
-            
         </ul>
         </div>
     </div>
@@ -29,7 +42,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-        <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

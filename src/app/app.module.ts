@@ -30,6 +30,13 @@ import { TimePartidaComponent } from './components/time-partida/time-partida.com
 import { ResultadoApostaComponent } from './components/resultado-aposta/resultado-aposta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IndexComponent } from './components/index/index.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
+import { BoardUserComponent } from './board-user/board-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +57,14 @@ import { IndexComponent } from './components/index/index.component';
     PartidaComponent,
     ResultadoApostaComponent,
     TimePartidaComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardModeratorComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,
